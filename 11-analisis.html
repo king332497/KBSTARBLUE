@@ -2267,11 +2267,49 @@ html,body{overflow-x:clip;max-width:100%;}
   #kb-indonesia-shell .ki-page,#kb-indonesia-shell .ki-content,#kb-indonesia-shell .ki-header,#kb-indonesia-shell .ki-nav{box-sizing:border-box!important;max-width:100%!important;}
 }
 </style>
-<style id="ka-countdown-style">
-.ka-stages li{transition:color .3s,opacity .3s;opacity:.5;}
-.ka-stages li.ka-on{opacity:1;color:#7b24c7;font-weight:600;}
-.ka-stages li.ka-done{opacity:.85;}
-.ka-stages li.ka-done span{background:#16a34a;color:#fff;}
+<style id="ka-sf-style">
+#kb-starforge{position:fixed;inset:0;z-index:99998;color:#fff;overflow:hidden;
+ background:radial-gradient(120% 90% at 50% 10%,#36136b 0%,#1d0a3f 45%,#0b0420 100%);
+ display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;}
+#kb-starforge .sf-rays{position:absolute;width:560px;height:560px;top:50%;left:50%;transform:translate(-50%,-60%);
+ background:conic-gradient(from 0deg,#ffd54a00 0deg,#ffd54a22 6deg,#ffd54a00 12deg,#b06bff00 40deg,#b06bff22 46deg,#b06bff00 52deg);
+ animation:sf-rot 22s linear infinite;-webkit-mask:radial-gradient(closest-side,#000 30%,transparent 72%);mask:radial-gradient(closest-side,#000 30%,transparent 72%);}
+@keyframes sf-rot{to{transform:translate(-50%,-60%) rotate(360deg)}}
+#kb-starforge .sf-rays{pointer-events:none;}
+#kb-starforge .sf-spark{pointer-events:none;position:absolute;border-radius:50%;background:#fff;box-shadow:0 0 8px #ffd54a;animation:sf-tw 2.6s ease-in-out infinite;}
+@keyframes sf-tw{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}
+#kb-starforge .sf-brand{position:absolute;top:30px;left:50%;transform:translateX(-50%);z-index:5;}
+#kb-starforge .sf-stage{position:relative;width:216px;height:216px;display:flex;align-items:center;justify-content:center;}
+#kb-starforge .sf-ring{position:absolute;inset:0;border-radius:50%;}
+#kb-starforge .sf-ring.track{border:1.5px solid #ffffff14;}
+#kb-starforge .sf-ring.prog{background:conic-gradient(#ffd54a 0% 0%,#ffffff12 0% 100%);
+ -webkit-mask:radial-gradient(closest-side,transparent 70%,#000 71%);mask:radial-gradient(closest-side,transparent 70%,#000 71%);}
+#kb-starforge .sf-ring.spin{inset:16px;border:1.5px solid transparent;border-top-color:#b06bff;border-right-color:#66e0ff;animation:sf-sp 3.4s linear infinite;}
+@keyframes sf-sp{to{transform:rotate(360deg)}}
+#kb-starforge .sf-badge{position:relative;width:120px;height:120px;border-radius:30px;display:flex;align-items:center;justify-content:center;
+ background:linear-gradient(145deg,#8b2fe0,#5a18a6);box-shadow:0 18px 40px -10px #7b24c7aa,inset 0 2px 0 #ffffff55,0 0 50px #9b45ff55;animation:sf-fl 3.6s ease-in-out infinite;}
+@keyframes sf-fl{50%{transform:translateY(-6px) rotate(-3deg)}}
+#kb-starforge .sf-star{width:66px;height:66px;filter:drop-shadow(0 4px 10px #0006);transition:opacity .3s;}
+#kb-starforge .sf-check{position:absolute;left:50%;top:50%;width:104px;height:104px;opacity:0;transform:translate(-50%,-50%) scale(.3);transition:opacity .35s ease,transform .55s cubic-bezier(.2,.9,.3,1.5);}
+#kb-starforge .sf-check circle{fill:#16a34a;}
+#kb-starforge .sf-check .ck{fill:none;stroke:#fff;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;}
+#kb-starforge.done .sf-badge{background:linear-gradient(145deg,#1f9d57,#15854a);box-shadow:0 18px 40px -10px #16a34a99,inset 0 2px 0 #ffffff55,0 0 50px #16a34a55;}
+#kb-starforge.done .sf-star{opacity:0;}
+#kb-starforge.done .sf-check{opacity:1;transform:translate(-50%,-50%) scale(1);}
+#kb-starforge.done .sf-check .ck{animation:sf-draw .5s .18s ease forwards;}
+@keyframes sf-draw{to{stroke-dashoffset:0;}}
+#kb-starforge.done .sf-ring.spin{display:none;}
+#kb-starforge.done .sf-pct{background:#16a34a;color:#fff;}
+#kb-starforge .sf-pct{position:absolute;bottom:-6px;right:-6px;background:#ffd54a;color:#3a1d00;font-weight:800;font-size:13px;padding:5px 11px;border-radius:999px;box-shadow:0 6px 14px #0004;font-variant-numeric:tabular-nums;}
+#kb-starforge .sf-title{margin-top:30px;font-size:22px;font-weight:800;text-align:center;padding:0 24px;background:linear-gradient(90deg,#fff,#ffe6a8);-webkit-background-clip:text;background-clip:text;color:transparent;}
+#kb-starforge .sf-sub{margin-top:9px;font-size:12.5px;color:#c9b8ea;text-align:center;padding:0 30px;max-width:330px;}
+#kb-starforge .sf-cta{margin-top:26px;display:none;align-items:center;gap:8px;border:0;cursor:pointer;
+ padding:15px 26px;border-radius:16px;font-size:15px;font-weight:700;color:#fff;
+ background:linear-gradient(135deg,#8b2fe0,#b06bff);box-shadow:0 14px 30px -8px #9b45ffaa;}
+#kb-starforge.done .sf-cta{display:inline-flex;animation:sf-pop .5s ease;}
+@keyframes sf-pop{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+#kb-starforge .sf-cta svg{width:18px;height:18px;}
+#kb-starforge .sf-note{position:absolute;bottom:24px;left:0;right:0;text-align:center;font-size:10px;color:#8f7bb0;padding:0 26px;letter-spacing:.03em;}
 </style>
 </head><body><div id="kb-loader" class="kb-on" role="status" aria-live="polite" aria-label="Memuat halaman"><div class="kb-bar"></div><div class="kb-spin"></div><div class="kb-txt">Memuat…</div></div><div id="kb-indonesia-shell" lang="id"><div class="ki-page"><header class="ki-header" id="ki-page-top">
       <div class="ki-logo"><span class="ki-logo-icon"><i data-lucide="asterisk" aria-hidden="true"></i></span><div><div class="ki-logo-name">KB Bank</div><div class="ki-logo-country">INDONESIA</div></div></div>
@@ -2341,54 +2379,51 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   window.addEventListener('pageshow',function(ev){ if(ev.persisted) hide(); });
 })();
 </script>
-<script id="ka-countdown-logic">
+<div id="kb-starforge" role="status" aria-live="polite"><div class="sf-rays"></div><div class="sf-brand"><svg height="30" viewBox="0 0 230 44"><text x="0" y="34" font-family="system-ui,Arial" font-weight="800" font-size="34"><tspan fill="#f6b01e">KB</tspan><tspan fill="#fff">star</tspan></text><path d="M150 2 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4z" fill="#ffd54a"/><text x="2" y="43" font-size="9" letter-spacing="2" fill="#b79fe0">BY KB BANK</text></svg></div><div class="sf-stage"><div class="sf-ring prog" id="sf-prog"></div><div class="sf-ring track"></div><div class="sf-ring spin"></div><div class="sf-badge"><svg class="sf-star" viewBox="0 0 24 24"><path d="M12 1.5l2.6 6.4 6.9 .9 -5 4.8 1.3 6.9 -5.8 -3.4 -5.8 3.4 1.3 -6.9 -5 -4.8 6.9 -.9z" fill="url(#sfg)"/><defs><linearGradient id="sfg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#ffe08a"/><stop offset="1" stop-color="#ffb100"/></linearGradient></defs></svg><svg class="sf-check" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"></circle><path class="ck" d="M14 24.5l6.5 6.5L34 17"></path></svg><span class="sf-pct" id="sf-pct">0%</span></div></div><div class="sf-title" id="sf-title">Menganalisis Pengajuan</div><div class="sf-sub" id="sf-sub">Memeriksa kelengkapan & ilustrasi perhitungan…</div><button type="button" class="sf-cta" id="sf-cta">Lanjut Dashboard Pinjaman <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button><div class="sf-note">Animasi & proses ini pratinjau simulasi. Bukan keputusan kredit bank; tidak ada pengajuan yang dikirim.</div></div>
+<script id="ka-sf-logic">
 (function(){
-  var DUR=5*60*1000; // 5 menit
-  var tEl=document.getElementById('ka-timer');
-  var bar=document.getElementById('ka-progress');
-  var barSpan=bar?bar.querySelector('span'):null;
-  var pct=document.getElementById('ka-percent');
-  var copy=document.getElementById('ka-stage-copy');
-  var msg=document.getElementById('ka-message');
-  var complete=document.getElementById('ka-complete');
-  var stages=[].slice.call(document.querySelectorAll('.ka-stages li'));
-  var stageCopy=['Meninjau ringkasan contoh','Memeriksa kelengkapan contoh','Menghitung ilustrasi','Menyiapkan ringkasan'];
-  if(!tEl) return;
+  var DUR=5*60*1000; // 5 menit sampai 100%
   var KEY='kb_analisis_start';
-  if(!window.__kaStart){
-    var st=null; try{ st=parseInt(localStorage.getItem(KEY),10); }catch(e){}
-    if(!st||isNaN(st)){ st=Date.now(); try{ localStorage.setItem(KEY,String(st)); }catch(e){} }
-    window.__kaStart=st;
+  var pctEl=document.getElementById('sf-pct');
+  var prog=document.getElementById('sf-prog');
+  var sf=document.getElementById('kb-starforge');
+  var title=document.getElementById('sf-title');
+  var sub=document.getElementById('sf-sub');
+  var cta=document.getElementById('sf-cta');
+  if(!sf) return;
+  var stages=['Meninjau ringkasan contoh','Memeriksa kelengkapan contoh','Menghitung ilustrasi','Menyiapkan ringkasan'];
+  var start;
+  try{ start=parseInt(localStorage.getItem(KEY),10); }catch(e){}
+  if(!start||isNaN(start)){ start=Date.now(); try{ localStorage.setItem(KEY,String(start)); }catch(e){} }
+  var done=false;
+  function finish(){
+    done=true;
+    pctEl.textContent='100%';
+    prog.style.background='conic-gradient(#ffd54a 0% 100%,#ffffff12 0% 100%)';
+    title.textContent='Simulasi Pinjaman Disetujui';
+    sub.textContent='Hasil contoh siap ditampilkan.';
+    sf.classList.add('done');
+    clearInterval(iv);
   }
-  // mulai ulang hanya untuk alur baru: hapus simpanan saat lanjut ke dashboard
-  var nextBtn=document.getElementById('ka-dashboard-next');
-  if(nextBtn){ nextBtn.addEventListener('click',function(){ try{ localStorage.removeItem(KEY); }catch(e){} }); }
-  var finished=false;
-  function two(n){ return (n<10?'0':'')+n; }
   function tick(){
-    var elapsed=Date.now()-window.__kaStart;
-    if(elapsed<0)elapsed=0;
-    var remain=Math.max(0,DUR-elapsed);
-    var mm=Math.floor(remain/60000), ss=Math.floor((remain%60000)/1000);
-    tEl.textContent=two(mm)+':'+two(ss);
-    var p=Math.min(100,Math.round(elapsed/DUR*100));
-    if(barSpan)barSpan.style.width=p+'%';
-    if(bar)bar.setAttribute('aria-valuenow',String(p));
-    if(pct)pct.textContent=p+'%';
-    var si=Math.min(stages.length-1,Math.floor(elapsed/DUR*stages.length));
-    stages.forEach(function(li,i){ li.classList.toggle('ka-on',i===si&&remain>0); li.classList.toggle('ka-done',i<si||remain===0); });
-    if(copy&&stageCopy[si]&&remain>0)copy.textContent=stageCopy[si];
-    if(remain<=0 && !finished){
-      finished=true;
-      if(copy)copy.textContent='Selesai';
-      if(msg)msg.textContent='Pratinjau analisis selesai. Hasil contoh siap ditampilkan.';
-      if(complete)complete.hidden=false;
-      if(complete)complete.scrollIntoView({behavior:'smooth',block:'center'});
-      clearInterval(iv);
-    }
+    var el=Date.now()-start; if(el<0)el=0;
+    var p=Math.min(100,Math.floor(el/DUR*100));
+    pctEl.textContent=p+'%';
+    prog.style.background='conic-gradient(#ffd54a 0% '+p+'%,#ffffff12 '+p+'% 100%)';
+    var si=Math.min(stages.length-1,Math.floor(el/DUR*stages.length));
+    if(!done && sub) sub.textContent=stages[si]+'…';
+    if(p>=100 && !done) finish();
   }
   tick();
-  var iv=setInterval(tick,250);
+  var iv=setInterval(tick,200);
+  cta.addEventListener('click',function(){
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    if(window.__kbNav){ window.__kbNav('12-dashboard.html'); } else { location.href='12-dashboard.html'; }
+  });
+  // sparkles
+  for(var i=0;i<22;i++){ var d=document.createElement('div'); d.className='sf-spark'; var z=Math.random()*2+1;
+    d.style.width=d.style.height=z+'px'; d.style.left=(Math.random()*100)+'%'; d.style.top=(Math.random()*100)+'%';
+    d.style.animationDelay=(-Math.random()*3)+'s'; sf.appendChild(d); }
 })();
 </script>
 </body></html>
