@@ -3,6 +3,14 @@
     {
       "source": "/",
       "destination": "/01-beranda.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/admin/",
+      "destination": "/admin/index.html"
     }
   ]
 }

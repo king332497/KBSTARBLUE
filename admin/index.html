@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>KBSTAR — Admin Studio Demo</title>
+<style>
+:root{--navy:#15295c;--blue:#3b6bf4;--bg:#f4f7fe;--ink:#17254a;--muted:#7c8caa;--line:#e4eaf7}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink);font-size:14px;line-height:1.55}
+button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #a3b8ff;outline-offset:2px}
+a{color:inherit;text-decoration:none}h1,h2,h3,p{margin:0}[hidden]{display:none!important}
+.layout{min-height:100vh;display:grid;grid-template-columns:225px minmax(0,1fr)}
+.sidebar{background:#13244d;color:#fff;display:flex;flex-direction:column;padding:27px 14px;gap:28px}
+.logo{display:flex;align-items:center;gap:12px;padding:3px 9px;font-weight:850;font-size:22px;letter-spacing:.025em}
+.mark{width:41px;height:41px;border-radius:12px;background:linear-gradient(125deg,#83b9ff,#3765f0);display:grid;place-items:center;font-size:22px}
+.logo small{display:block;font-size:9px;letter-spacing:.19em;color:#abc1f9}
+.nav{display:grid;gap:5px}
+.nav button{background:transparent;border:0;border-radius:11px;color:#b8c8ed;text-align:left;padding:12px 15px;font-size:13px;font-weight:700}
+.nav button.active,.nav button:hover{background:#3056ac;color:white}
+.sidebar-note{margin-top:auto;border:1px solid #435983;border-radius:12px;padding:13px;color:#d8e3ff;font-size:11px}
+.main{min-width:0}.topbar{min-height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 36px}
+.topbar strong{font-size:13px}.profile{display:flex;align-items:center;gap:12px;font-weight:700;font-size:12px}.avatar{background:#3b60c6;color:white;border-radius:10px;padding:9px 13px}.badge{color:#295beb;background:#e8f0ff;border-radius:9px;font-size:10px;padding:8px 12px;letter-spacing:.08em;font-weight:850}
+.content{max-width:1600px;margin:0 auto;padding:39px 40px}.eyebrow{font-size:10px;letter-spacing:.2em;color:#3769ef;font-weight:900}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}.sectionhead h1{font-size:28px;letter-spacing:-.035em;margin:6px 0}.desc{color:var(--muted);font-size:13px}
+button.primary{border:1px solid #3260e4;border-radius:11px;background:#3c6cfa;color:white;font-weight:750;padding:11px 17px;box-shadow:0 9px 20px #3a65f423}
+button.secondary{border:1px solid #dbe4f9;background:white;color:#3157a7;border-radius:9px;padding:8px 12px;font-weight:700}
+button.primary:hover{background:#2d58dd}button.secondary:hover{background:#eef3ff}
+.hero{border-radius:18px;background:linear-gradient(115deg,#1a2d63,#315fcf 65%,#5182ef);color:#fff;padding:38px;position:relative;overflow:hidden;box-shadow:0 12px 25px #385cca1c}
+.hero:after{content:"◇";position:absolute;right:50px;top:-26px;font-size:170px;font-weight:100;color:#ffffff18}
+.hero small{font-size:11px;letter-spacing:.16em;color:#bdd5ff;font-weight:900}.hero h2{font-size:22px;margin:12px 0 8px}.hero p{max-width:630px;color:#e3ecff;font-size:12px;line-height:1.8}
+.notice{margin:20px 0;border:1px solid #d6dff8;background:#eaf1ff;border-radius:12px;padding:14px 18px;font-size:12px;color:#3e5689}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:22px 0}
+.stat,.card{background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 10px 25px #17305b08}.stat{padding:22px}.stat .symbol{background:#eaf0ff;color:#3766e8;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:20px}.stat .label{font-size:12px;color:#7182a8;margin:12px 0 2px}.stat strong{font-size:28px;line-height:1.1}.stat small{display:block;color:#99a4bb;font-size:11px;margin-top:6px}
+.card{overflow:hidden;margin-bottom:18px}.cardheader{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px 23px;border-bottom:1px solid var(--line)}.cardheader h2{font-size:16px}.cardheader p{color:#92a0b9;font-size:12px}.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:12px}th{text-align:left;color:#8394b6;background:#f8faff;font-size:10px;letter-spacing:.1em;text-transform:uppercase}th,td{padding:14px 20px;border-bottom:1px solid #edf0f7}tbody tr:last-child td{border-bottom:0}
+.chip{display:inline-block;font-size:11px;padding:4px 9px;border-radius:30px;background:#eaf1ff;color:#335ddd;font-weight:700}.chip.selesai{background:#e4f9f2;color:#138963}.chip.diproses{background:#f0ecff;color:#7958bd}
+.actions{display:flex;gap:7px;flex-wrap:wrap}.actions button{border:1px solid #dce6fa;background:#f9fbff;color:#315ad4;border-radius:7px;padding:5px 9px;font-weight:700}.actions .danger{color:#b73f58;background:#fff9fa;border-color:#f4d8dd}
+.tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:16px 22px}.tools input,.tools select{border:1px solid #dbe3f2;border-radius:9px;padding:10px 12px;background:#fff;min-width:160px;color:var(--ink)}
+.tools input{flex:1;max-width:440px}.empty{padding:28px;color:#8392ab;text-align:center}
+.panelmsg{padding:24px;font-size:12px;line-height:1.75;color:#52678e}
+#activityItems{list-style:none;padding:8px 23px;margin:0}#activityItems li{padding:11px 0;border-bottom:1px solid #edf0f7}#activityItems small{display:block;color:#8d9cb5}
+.overlay{position:fixed;inset:0;background:#132448a8;display:flex;align-items:center;justify-content:center;padding:20px;z-index:10}.modal{background:white;border-radius:17px;padding:28px;width:min(100%,510px);box-shadow:0 30px 80px #17234e66}.modal h2{font-size:19px}.modal p{color:#8594ad;font-size:12px;margin:6px 0 20px}.formfield{display:grid;gap:7px;margin:13px 0;font-size:12px;font-weight:750}.formfield input,.formfield select{border:1px solid #d9e2f1;padding:11px 13px;border-radius:9px;width:100%;color:#142755}
+.buttons{display:flex;gap:10px;justify-content:flex-end;margin-top:21px}.footnote{text-align:center;font-size:11px;color:#8794ad;padding:10px}
+@media(max-width:920px){.layout{grid-template-columns:1fr}.sidebar{padding:12px 14px;gap:10px}.nav{display:flex;flex-wrap:wrap}.nav button{padding:8px 11px}.sidebar-note{display:none}.content{padding:25px 18px}.topbar{padding:12px 18px}.stats{grid-template-columns:repeat(2,1fr)}.hero{padding:25px}.hero:after{display:none}}
+@media(max-width:530px){.stats{gap:10px}.stat{padding:15px}.sectionhead{align-items:flex-start;flex-direction:column}.topbar{gap:6px}.topbar strong{font-size:11px}.profile{gap:6px}.badge{padding:6px}.hero h2{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<div class="logo"><span class="mark">◇</span><span>KBSTAR<small>ADMIN STUDIO</small></span></div>
+<nav class="nav" aria-label="Navigasi Admin"><button type="button" class="active" data-tab="dashboard">◈ &nbsp; Dashboard</button><button type="button" data-tab="users">♙ &nbsp; Pengguna Demo</button><button type="button" data-tab="logs">◷ &nbsp; Log Aktivitas</button><button type="button" data-tab="about">⚙ &nbsp; Informasi</button></nav>
+<div class="sidebar-note"><b>Lingkungan demonstrasi</b><p>Hanya data fiktif yang disimpan di browser ini. Tidak terhubung ke bank atau aplikasi pengajuan nyata.</p></div>
+</aside>
+<div class="main">
+<header class="topbar"><strong>Admin Studio &nbsp; / &nbsp; <span id="breadcrumb">Dashboard</span></strong><div class="profile"><span class="badge">● SIMULASI</span><span class="avatar">A</span><span>Demo Admin</span></div></header>
+<main class="content">
+<section id="tab-dashboard">
+<div class="sectionhead"><div><span class="eyebrow">ADMINISTRATOR WORKSPACE</span><h1>Dashboard Overview</h1><p class="desc">Ringkasan profil dan tahapan demonstrasi website KBSTAR.</p></div><button type="button" class="primary" data-add>+ Tambah Pengguna</button></div>
+<div class="hero"><small>✧ ADMIN CONTROL CENTER</small><h2>Kelola alur demonstrasi dengan lebih terstruktur.</h2><p>Identifikasi tiap profil fiktif memakai User ID otomatis dan nama demo. Tahapan halaman hanya penanda pengujian, bukan perubahan otomatis pada data pengguna atau bank.</p></div>
+<div class="notice">ℹ️ Dashboard publik untuk simulasi. Bukan layanan resmi KB Bank. Jangan masukkan PIN, OTP asli, kata sandi, NIK, rekening bank, atau informasi pribadi nyata.</div>
+<div class="stats"><div class="stat"><span class="symbol">♙</span><p class="label">Total Pengguna</p><strong id="totalCount">0</strong><small>Profil demo</small></div><div class="stat"><span class="symbol">◷</span><p class="label">Dalam Proses</p><strong id="processCount">0</strong><small>Status pengujian</small></div><div class="stat"><span class="symbol">✓</span><p class="label">Selesai</p><strong id="doneCount">0</strong><small>Simulasi lengkap</small></div><div class="stat"><span class="symbol">✧</span><p class="label">Baru</p><strong id="newCount">0</strong><small>Profil baru</small></div></div>
+<div class="card"><div class="cardheader"><div><h2>Pengguna Terbaru</h2><p>Terakhir diperbarui di browser ini.</p></div><button class="secondary" data-tab-open="users">Lihat Semua →</button></div><div class="tablewrap"><table><thead><tr><th>User ID</th><th>Nama Lengkap (Demo)</th><th>Status</th><th>Halaman Demo</th></tr></thead><tbody id="latestRows"></tbody></table></div></div>
+</section>
+<section id="tab-users" hidden>
+<div class="sectionhead"><div><span class="eyebrow">PROFIL SIMULASI</span><h1>Pengguna Demo</h1><p class="desc">Tambah, ubah, dan hapus profil fiktif untuk keperluan pengujian.</p></div><button class="primary" type="button" data-add>+ Tambah Pengguna</button></div>
+<div class="card"><div class="tools"><input id="search" aria-label="Cari nama atau ID" placeholder="Cari User ID atau nama demo..." maxlength="80"><select id="filter" aria-label="Filter status"><option value="">Semua status</option><option>Baru</option><option>Diproses</option><option>Selesai</option></select><button class="secondary" id="resetBtn">Reset Data Demo</button></div><div class="tablewrap"><table><thead><tr><th>User ID</th><th>Nama Demo</th><th>Status</th><th>Halaman Demo</th><th>Aksi</th></tr></thead><tbody id="allRows"></tbody></table></div></div>
+</section>
+<section id="tab-logs" hidden>
+<div class="sectionhead"><div><span class="eyebrow">JEJAK AKTIVITAS</span><h1>Log Aktivitas Demo</h1><p class="desc">Perubahan yang dilakukan di browser ini saja.</p></div></div><div class="card"><div class="cardheader"><div><h2>Riwayat Lokal</h2><p>Tidak merekam tindakan pengguna website online.</p></div></div><ul id="activityItems"></ul></div>
+</section>
+<section id="tab-about" hidden>
+<div class="sectionhead"><div><span class="eyebrow">INFORMASI SISTEM</span><h1>Admin Studio</h1><p class="desc">Batas penggunaan versi demo online.</p></div></div><div class="card panelmsg"><h2>Versi Demo Online</h2><p>Halaman ini bisa dibuka dari Chrome tanpa menjalankan CMD. Seluruh aktivitas tambah, edit, dan hapus profil demo hanya disimpan menggunakan localStorage pada browser yang dipakai. Data tidak dibagikan antar perangkat dan dapat hilang bila penyimpanan browser dibersihkan.</p><p style="margin-top:15px"><b>Tidak ada login administrator atau database server.</b> Halaman dapat dilihat oleh siapa pun yang mengetahui alamatnya. Untuk operasional yang sesungguhnya diperlukan autentikasi di server, authorization, audit log dan database persisten. Tidak digunakan untuk pengumpulan OTP atau kredensial perbankan.</p><p style="margin-top:15px"><a href="/" style="color:#315ee7;font-weight:700">← Kembali ke beranda prototipe</a></p></div>
+</section>
+<p class="footnote">KBSTAR Admin Studio · Demonstrasi independen · Bukan layanan resmi KB Bank</p>
+</main>
+</div></div>
+<div id="modalBackdrop" class="overlay" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><h2 id="modalTitle">Tambah Pengguna Demo</h2><p>Gunakan data fiktif. Jangan masukkan informasi pribadi atau perbankan asli.</p><form id="profileForm"><input type="hidden" id="editingId"><label class="formfield">Nama pengguna demo <input id="demoName" required minlength="3" maxlength="65" autocomplete="off" placeholder="Contoh: Pengguna Demo Empat"></label><label class="formfield">Status <select id="demoStatus"><option>Baru</option><option>Diproses</option><option>Selesai</option></select></label><label class="formfield">Tahap halaman demonstrasi <select id="demoPage"><option>Beranda</option><option>Pinjaman</option><option>Login Simulasi</option><option>Verifikasi Simulasi</option><option>OTP Simulasi</option><option>Data Pengajuan</option><option>Dokumen Pendukung</option><option>Informasi Pinjaman</option><option>Konfirmasi</option><option>Analisis</option><option>Dashboard</option><option>Transfer Simulasi</option></select></label><div class="buttons"><button class="secondary" type="button" id="cancelBtn">Batal</button><button class="primary" type="submit">Simpan Profil Demo</button></div></form></div></div>
+<script>
+(function(){
+"use strict";
+var KEY="kbstar.admin.demo.profiles.v1",LOGKEY="kbstar.admin.demo.logs.v1";
+var seed=[{id:"DEMO-001",name:"Pengguna Demo Satu",status:"Baru",page:"Beranda"},{id:"DEMO-002",name:"Pengguna Demo Dua",status:"Diproses",page:"Dashboard"},{id:"DEMO-003",name:"Pengguna Demo Tiga",status:"Selesai",page:"Konfirmasi"}];
+var validStatuses=["Baru","Diproses","Selesai"];
+var pages=["Beranda","Pinjaman","Login Simulasi","Verifikasi Simulasi","OTP Simulasi","Data Pengajuan","Dokumen Pendukung","Informasi Pinjaman","Konfirmasi","Analisis","Dashboard","Transfer Simulasi"];
+function copySeed(){return seed.map(function(x){return Object.assign({},x)})}
+function read(key,fallback){try{var item=localStorage.getItem(key);return item===null?fallback:JSON.parse(item)}catch(e){return fallback}}
+var profiles=read(KEY,copySeed());if(!Array.isArray(profiles))profiles=copySeed();
+profiles=profiles.filter(function(x){return x && typeof x.id==="string" && typeof x.name==="string" && validStatuses.includes(x.status) && pages.includes(x.page)}).slice(0,500);
+var logs=read(LOGKEY,[]);if(!Array.isArray(logs))logs=[];
+function save(){try{localStorage.setItem(KEY,JSON.stringify(profiles));localStorage.setItem(LOGKEY,JSON.stringify(logs.slice(0,60)))}catch(e){alert("Penyimpanan browser tidak tersedia. Perubahan mungkin tidak tersimpan.")}}
+function record(msg){logs.unshift({time:new Date().toLocaleString("id-ID"),message:msg});logs=logs.slice(0,60);save()}
+function el(id){return document.getElementById(id)}
+function td(row,value){var cell=document.createElement("td");cell.textContent=value;row.appendChild(cell);return cell}
+function chip(row,status){var cell=document.createElement("td");var span=document.createElement("span");span.className="chip "+status.toLowerCase();span.textContent=status;cell.appendChild(span);row.appendChild(cell)}
+function row(item,withActions){var tr=document.createElement("tr");td(tr,item.id);td(tr,item.name);chip(tr,item.status);td(tr,item.page);if(withActions){var cell=document.createElement("td");cell.className="actions";var edit=document.createElement("button");edit.textContent="Edit";edit.type="button";edit.addEventListener("click",function(){openModal(item.id)});var del=document.createElement("button");del.type="button";del.className="danger";del.textContent="Hapus";del.addEventListener("click",function(){if(!confirm("Hapus profil demo "+item.id+"?"))return;profiles=profiles.filter(function(p){return p.id!==item.id});record("Menghapus profil demo "+item.id);render()});cell.append(edit,del);tr.appendChild(cell)}return tr}
+function fillTable(id,items,actions){var body=el(id);body.replaceChildren();if(!items.length){var tr=document.createElement("tr");var cell=document.createElement("td");cell.colSpan=actions?5:4;cell.className="empty";cell.textContent="Belum ada profil demo";tr.appendChild(cell);body.appendChild(tr)}else items.forEach(function(p){body.appendChild(row(p,actions))})}
+function render(){el("totalCount").textContent=profiles.length;el("newCount").textContent=profiles.filter(function(x){return x.status==="Baru"}).length;el("processCount").textContent=profiles.filter(function(x){return x.status==="Diproses"}).length;el("doneCount").textContent=profiles.filter(function(x){return x.status==="Selesai"}).length;fillTable("latestRows",profiles.slice(-5).reverse(),false);
+var search=el("search").value.trim().toLocaleLowerCase("id-ID"),status=el("filter").value;fillTable("allRows",profiles.filter(function(p){return(!status||p.status===status)&&(!search||(p.id+" "+p.name).toLocaleLowerCase("id-ID").includes(search))}),true);
+var ul=el("activityItems");ul.replaceChildren();if(!logs.length){var li=document.createElement("li");li.textContent="Belum ada aktivitas.";ul.appendChild(li)}else logs.forEach(function(log){var li=document.createElement("li");li.textContent=log.message;var small=document.createElement("small");small.textContent=log.time;li.appendChild(small);ul.appendChild(li)})}
+var current="dashboard",labels={dashboard:"Dashboard",users:"Pengguna Demo",logs:"Log Aktivitas",about:"Informasi"};
+function activate(tab){if(!labels[tab])return;current=tab;Object.keys(labels).forEach(function(key){el("tab-"+key).hidden=key!==tab});document.querySelectorAll(".nav button[data-tab]").forEach(function(btn){btn.classList.toggle("active",btn.dataset.tab===tab)});el("breadcrumb").textContent=labels[tab]}
+document.querySelectorAll("[data-tab]").forEach(function(btn){btn.addEventListener("click",function(){activate(btn.dataset.tab)})});document.querySelectorAll("[data-tab-open]").forEach(function(btn){btn.addEventListener("click",function(){activate(btn.dataset.tabOpen)})});
+var modal=el("modalBackdrop"),lastFocus=null;
+function openModal(id){var item=profiles.find(function(p){return p.id===id});lastFocus=document.activeElement;el("editingId").value=item?item.id:"";el("modalTitle").textContent=item?"Edit Pengguna Demo":"Tambah Pengguna Demo";el("demoName").value=item?item.name:"";el("demoStatus").value=item?item.status:"Baru";el("demoPage").value=item?item.page:"Beranda";modal.hidden=false;el("demoName").focus()}
+function closeModal(){modal.hidden=true;if(lastFocus&&document.contains(lastFocus))lastFocus.focus()}
+document.querySelectorAll("[data-add]").forEach(function(btn){btn.addEventListener("click",function(){openModal(null)})});el("cancelBtn").addEventListener("click",closeModal);
+modal.addEventListener("click",function(e){if(e.target===modal)closeModal()});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!modal.hidden)closeModal()});
+function nextId(){var max=profiles.reduce(function(m,p){var n=Number((p.id.match(/^DEMO-(\d+)$/)||[])[1]);return Number.isFinite(n)?Math.max(m,n):m},0);return "DEMO-"+String(max+1).padStart(3,"0")}
+el("profileForm").addEventListener("submit",function(e){e.preventDefault();var id=el("editingId").value;var name=el("demoName").value.trim().replace(/\s+/g," ");var status=el("demoStatus").value,page=el("demoPage").value;if(name.length<3||name.length>65||!validStatuses.includes(status)||!pages.includes(page)){alert("Data demo tidak valid.");return}if(id){var p=profiles.find(function(x){return x.id===id});if(!p)return;p.name=name;p.status=status;p.page=page;record("Memperbarui profil demo "+id)}else{if(profiles.length>=500){alert("Batas 500 profil demo.");return}id=nextId();profiles.push({id:id,name:name,status:status,page:page});record("Menambahkan profil demo "+id)}save();closeModal();render();activate("users")});
+el("search").addEventListener("input",render);el("filter").addEventListener("change",render);el("resetBtn").addEventListener("click",function(){if(!confirm("Kembalikan semua data contoh dan hapus perubahan lokal?"))return;profiles=copySeed();logs=[];record("Mengatur ulang data demo");render()});render();
+})();
+</script>
+</body>
+</html>
