@@ -2285,7 +2285,13 @@ html,body{overflow-x:clip;max-width:100%;}
 /* ikon panah berdenyut */
 #kd-dashboard #kd-next-step .kd-next-icon{animation:kd-iconpulse 2.2s ease-in-out infinite;}
 @keyframes kd-iconpulse{50%{transform:translateX(3px);opacity:.75;}}
-@media (prefers-reduced-motion:reduce){#kd-dashboard #kd-next-step,#kd-dashboard #kd-next-step::after,#kd-dashboard #kd-next-action::after,#kd-dashboard #kd-next-step .kd-next-icon{animation:none!important;}}
+ #kd-dashboard .kd-balance{position:relative;overflow:hidden;}
+#kd-dashboard .kd-balance::after{content:"";position:absolute;top:-60%;left:-80%;width:50%;height:220%;z-index:5;pointer-events:none;transform:rotate(18deg);background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.34),rgba(255,255,255,0));animation:kd-sheen2 4.2s ease-in-out .6s infinite;}
+@keyframes kd-sheen2{0%{left:-80%}60%{left:150%}100%{left:150%}}
+#kd-dashboard .kd-benefit{position:relative;overflow:hidden;}
+#kd-dashboard .kd-benefit::after{content:"";position:absolute;top:-60%;left:-80%;width:45%;height:220%;z-index:5;pointer-events:none;transform:rotate(18deg);background:linear-gradient(90deg,rgba(255,255,255,0),rgba(176,107,255,.20),rgba(255,255,255,0));animation:kd-sheen3 5s ease-in-out 1.2s infinite;}
+@keyframes kd-sheen3{0%{left:-80%}60%{left:150%}100%{left:150%}}
+@media (prefers-reduced-motion:reduce){#kd-dashboard .kd-balance::after,#kd-dashboard .kd-benefit::after,#kd-dashboard #kd-next-step,#kd-dashboard #kd-next-step::after,#kd-dashboard #kd-next-action::after,#kd-dashboard #kd-next-step .kd-next-icon{animation:none!important;}}
 </style>
 </head><body class="kd-dashboard-open"><div id="kb-loader" class="kb-on" role="status" aria-live="polite" aria-label="Memuat halaman"><div class="kb-bar"></div><div class="kb-spin"></div><div class="kb-txt">Memuat…</div></div><div id="kb-indonesia-shell" lang="id"><div class="ki-page"><header class="ki-header" id="ki-page-top">
       <div class="ki-logo"><span class="ki-logo-icon"><i data-lucide="asterisk" aria-hidden="true"></i></span><div><div class="ki-logo-name">KB Bank</div><div class="ki-logo-country">INDONESIA</div></div></div>
