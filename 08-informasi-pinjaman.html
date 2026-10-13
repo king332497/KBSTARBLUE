@@ -2439,4 +2439,70 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   window.addEventListener('pageshow',function(ev){ if(ev.persisted) hide(); });
 })();
 </script>
+<script id="ks-loan-calc-logic">
+(function(){
+  var prod=document.getElementById('ks-loan-product');
+  var amt=document.getElementById('ks-loan-amount');
+  var rate=document.getElementById('ks-loan-interest');
+  var ten=document.getElementById('ks-loan-tenor');
+  if(!prod||!amt||!rate||!ten) return;
+
+  var limitEl=document.getElementById('ks-selected-product-limit');
+  var limitTxt=document.getElementById('ks-selected-product-limit-text');
+  var PLAFON={
+    'Kredit Serba Guna':300000000,'Kredit PNS Aktif':500000000,'Kredit Pra Pensiun':350000000,
+    'Kredit Pensiunan':300000000,'KPR/KPA':2000000000,'Kredit Kepemilikan Mobil':1000000000,'KUR':500000000
+  };
+
+  function rp(n){ return 'Rp'+Math.round(n).toLocaleString('id-ID'); }
+  function set(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; }
+
+  function render(){
+    var P=parseFloat(amt.value)||0;
+    var annual=(parseFloat(rate.value)||0)/100;
+    var n=parseInt(ten.value,10)||0;
+    var product=prod.value||'';
+    var rateStr=(parseFloat(rate.value)||0).toString().replace('.',',');
+
+    // product + limit
+    set('ks-live-product', product||'Belum dipilih');
+    set('ks-summary-product', product||'Belum dipilih');
+    if(product && PLAFON[product]!=null){
+      if(limitTxt) limitTxt.textContent='Plafon contoh hingga '+rp(PLAFON[product]);
+      if(limitEl) limitEl.hidden=false;
+    } else { if(limitEl) limitEl.hidden=true; }
+
+    // amount / interest / tenor mirrors
+    set('ks-live-amount', P>0? rp(P):'Rp —');
+    set('ks-summary-amount', P>0? rp(P):'Rp —');
+    set('ks-live-interest', rateStr+'%');
+    set('ks-summary-interest', rateStr+'% efektif per tahun');
+    set('ks-live-tenor', n>0? n+' bln':'— bln');
+    set('ks-summary-tenor', n>0? n+' bulan':'— bulan');
+
+    // annuity calculation (needs amount + tenor)
+    if(P>0 && n>0 && annual>0){
+      var i=Math.pow(1+annual,1/12)-1;            // bunga bulanan ekuivalen
+      var m=P*i/(1-Math.pow(1+i,-n));             // cicilan anuitas
+      var totalPay=m*n;
+      var totalInt=totalPay-P;
+      set('ks-live-installment', rp(m));
+      set('ks-summary-installment', rp(m)+' / bulan');
+      set('ks-summary-total-interest', rp(totalInt));
+      set('ks-summary-total-payment', rp(totalPay));
+    } else {
+      set('ks-live-installment','Rp —');
+      set('ks-summary-installment','Rp — / bulan');
+      set('ks-summary-total-interest','Rp —');
+      set('ks-summary-total-payment','Rp —');
+    }
+  }
+
+  [prod,amt,rate,ten].forEach(function(el){
+    el.addEventListener('change',render);
+    el.addEventListener('input',render);
+  });
+  render();
+})();
+</script>
 </body></html>
