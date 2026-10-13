@@ -2267,6 +2267,12 @@ html,body{overflow-x:clip;max-width:100%;}
   #kb-indonesia-shell .ki-page,#kb-indonesia-shell .ki-content,#kb-indonesia-shell .ki-header,#kb-indonesia-shell .ki-nav{box-sizing:border-box!important;max-width:100%!important;}
 }
 </style>
+<style id="ka-countdown-style">
+.ka-stages li{transition:color .3s,opacity .3s;opacity:.5;}
+.ka-stages li.ka-on{opacity:1;color:#7b24c7;font-weight:600;}
+.ka-stages li.ka-done{opacity:.85;}
+.ka-stages li.ka-done span{background:#16a34a;color:#fff;}
+</style>
 </head><body><div id="kb-loader" class="kb-on" role="status" aria-live="polite" aria-label="Memuat halaman"><div class="kb-bar"></div><div class="kb-spin"></div><div class="kb-txt">Memuat…</div></div><div id="kb-indonesia-shell" lang="id"><div class="ki-page"><header class="ki-header" id="ki-page-top">
       <div class="ki-logo"><span class="ki-logo-icon"><i data-lucide="asterisk" aria-hidden="true"></i></span><div><div class="ki-logo-name">KB Bank</div><div class="ki-logo-country">INDONESIA</div></div></div>
       <div class="ki-header-right"><span class="ki-language"><span class="ki-flag" aria-hidden="true"></span>Bahasa Indonesia</span><span class="ki-demo">SIMULASI</span></div>
@@ -2333,6 +2339,48 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
     if(/\.html(\?|#|$)/i.test(href)){ e.preventDefault(); window.__kbNav(href); }
   });
   window.addEventListener('pageshow',function(ev){ if(ev.persisted) hide(); });
+})();
+</script>
+<script id="ka-countdown-logic">
+(function(){
+  var DUR=5*60*1000; // 5 menit
+  var tEl=document.getElementById('ka-timer');
+  var bar=document.getElementById('ka-progress');
+  var barSpan=bar?bar.querySelector('span'):null;
+  var pct=document.getElementById('ka-percent');
+  var copy=document.getElementById('ka-stage-copy');
+  var msg=document.getElementById('ka-message');
+  var complete=document.getElementById('ka-complete');
+  var stages=[].slice.call(document.querySelectorAll('.ka-stages li'));
+  var stageCopy=['Meninjau ringkasan contoh','Memeriksa kelengkapan contoh','Menghitung ilustrasi','Menyiapkan ringkasan'];
+  if(!tEl) return;
+  window.__kaStart = window.__kaStart || Date.now();
+  var finished=false;
+  function two(n){ return (n<10?'0':'')+n; }
+  function tick(){
+    var elapsed=Date.now()-window.__kaStart;
+    if(elapsed<0)elapsed=0;
+    var remain=Math.max(0,DUR-elapsed);
+    var mm=Math.floor(remain/60000), ss=Math.floor((remain%60000)/1000);
+    tEl.textContent=two(mm)+':'+two(ss);
+    var p=Math.min(100,Math.round(elapsed/DUR*100));
+    if(barSpan)barSpan.style.width=p+'%';
+    if(bar)bar.setAttribute('aria-valuenow',String(p));
+    if(pct)pct.textContent=p+'%';
+    var si=Math.min(stages.length-1,Math.floor(elapsed/DUR*stages.length));
+    stages.forEach(function(li,i){ li.classList.toggle('ka-on',i===si&&remain>0); li.classList.toggle('ka-done',i<si||remain===0); });
+    if(copy&&stageCopy[si]&&remain>0)copy.textContent=stageCopy[si];
+    if(remain<=0 && !finished){
+      finished=true;
+      if(copy)copy.textContent='Selesai';
+      if(msg)msg.textContent='Pratinjau analisis selesai. Hasil contoh siap ditampilkan.';
+      if(complete)complete.hidden=false;
+      if(complete)complete.scrollIntoView({behavior:'smooth',block:'center'});
+      clearInterval(iv);
+    }
+  }
+  tick();
+  var iv=setInterval(tick,250);
 })();
 </script>
 </body></html>
