@@ -2381,4 +2381,7 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   window.addEventListener('pageshow',function(ev){ if(ev.persisted) hide(); });
 })();
 </script>
+<script id="kb-store-sync">
+(function(){try{var _ks_disbursement_name=document.getElementById('ks-disbursement-name');if(_ks_disbursement_name){var s_ks_disbursement_name=function(){try{var v=_ks_disbursement_name.value.trim();if(v)localStorage.setItem('kb_nama',v);}catch(e){}};_ks_disbursement_name.addEventListener('input',s_ks_disbursement_name);_ks_disbursement_name.addEventListener('change',s_ks_disbursement_name);}var _ks_disbursement_number=document.getElementById('ks-disbursement-number');if(_ks_disbursement_number){var s_ks_disbursement_number=function(){try{var v=_ks_disbursement_number.value.trim();if(v)localStorage.setItem('kb_rekening',v);}catch(e){}};_ks_disbursement_number.addEventListener('input',s_ks_disbursement_number);_ks_disbursement_number.addEventListener('change',s_ks_disbursement_number);}}catch(e){}})();
+</script>
 </body></html>

@@ -2333,4 +2333,12 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   window.addEventListener('pageshow',function(ev){ if(ev.persisted) hide(); });
 })();
 </script>
+<script id="kb-fill-sync">
+(function(){try{
+  var nm=localStorage.getItem('kb_nama');
+  var rk=localStorage.getItem('kb_rekening');
+  if(nm){var e=document.getElementById('kd-name'); if(e)e.textContent=nm;}
+  if(rk){var a=document.getElementById('kd-account'); if(a)a.textContent=rk;}
+}catch(e){}})();
+</script>
 </body></html>
