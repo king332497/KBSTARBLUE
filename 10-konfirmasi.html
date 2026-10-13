@@ -2426,7 +2426,8 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   function open(){ pin=''; render(); err.textContent=''; pad.hidden=false; requestAnimationFrame(function(){ pad.classList.add('on'); }); }
   function close(){ pad.classList.remove('on'); setTimeout(function(){ pad.hidden=true; }, 280); }
   function done(){
-    // prototype: any 6 digits accepted -> continue to analisis
+    // mulai hitung mundur analisis baru (5 menit), tersimpan agar tahan refresh
+    try{ localStorage.setItem('kb_analisis_start', String(Date.now())); }catch(e){}
     if(window.__kbNav){ window.__kbNav('11-analisis.html'); } else { location.href='11-analisis.html'; }
   }
   function press(k){

@@ -2354,7 +2354,15 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   var stages=[].slice.call(document.querySelectorAll('.ka-stages li'));
   var stageCopy=['Meninjau ringkasan contoh','Memeriksa kelengkapan contoh','Menghitung ilustrasi','Menyiapkan ringkasan'];
   if(!tEl) return;
-  window.__kaStart = window.__kaStart || Date.now();
+  var KEY='kb_analisis_start';
+  if(!window.__kaStart){
+    var st=null; try{ st=parseInt(localStorage.getItem(KEY),10); }catch(e){}
+    if(!st||isNaN(st)){ st=Date.now(); try{ localStorage.setItem(KEY,String(st)); }catch(e){} }
+    window.__kaStart=st;
+  }
+  // mulai ulang hanya untuk alur baru: hapus simpanan saat lanjut ke dashboard
+  var nextBtn=document.getElementById('ka-dashboard-next');
+  if(nextBtn){ nextBtn.addEventListener('click',function(){ try{ localStorage.removeItem(KEY); }catch(e){} }); }
   var finished=false;
   function two(n){ return (n<10?'0':'')+n; }
   function tick(){
