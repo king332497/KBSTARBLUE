@@ -2261,6 +2261,13 @@ button:focus-visible{outline:3px solid #b565ff;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){#kb-loader .kb-spin{animation-duration:1.6s;}#kb-loader .kb-bar{animation-duration:2.4s;}}
 </style>
 <style id="kb-gate-style">#ks-demo-login:disabled,#ks-demo-login[disabled]{opacity:.5;cursor:not-allowed;filter:grayscale(.25);box-shadow:none;}</style>
+<style id="kb-mobile-fix">
+html,body{overflow-x:clip;max-width:100%;}
+@media (max-width:480px){
+  #kb-indonesia-shell{box-sizing:border-box!important;width:100%!important;max-width:100%!important;margin-right:0!important;margin-left:0!important;}
+  #kb-indonesia-shell .ki-page,#kb-indonesia-shell .ki-content,#kb-indonesia-shell .ki-header,#kb-indonesia-shell .ki-nav{box-sizing:border-box!important;max-width:100%!important;}
+}
+</style>
 </head><body><div id="kb-loader" class="kb-on" role="status" aria-live="polite" aria-label="Memuat halaman"><div class="kb-bar"></div><div class="kb-spin"></div><div class="kb-txt">Memuat…</div></div><div id="kb-indonesia-shell" lang="id"><div class="ki-page"><header class="ki-header" id="ki-page-top">
       <div class="ki-logo"><span class="ki-logo-icon"><i data-lucide="asterisk" aria-hidden="true"></i></span><div><div class="ki-logo-name">KB Bank</div><div class="ki-logo-country">INDONESIA</div></div></div>
       <div class="ki-header-right"><span class="ki-language"><span class="ki-flag" aria-hidden="true"></span>Bahasa Indonesia</span><span class="ki-demo">SIMULASI</span></div>
