@@ -2305,4 +2305,13 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   window.addEventListener('pageshow',function(ev){ if(ev.persisted) hide(); });
 })();
 </script>
+<script id="kb-fill-sync">
+(function(){try{
+  function fmtRek(raw){var d=(raw||'').replace(/\D/g,'');if(!d)return '2000-0083-418';var g=[];for(var k=0;k<d.length;k+=4)g.push(d.slice(k,k+4));return g.join('-');}
+  var nm=localStorage.getItem('kb_nama');
+  var rk=localStorage.getItem('kb_rekening');
+  if(nm){var e=document.getElementById('kt-name'); if(e)e.textContent=nm.toUpperCase();}
+  var a=document.getElementById('kt-account'); if(a)a.textContent=fmtRek(rk);
+}catch(e){}})();
+</script>
 </body></html>
