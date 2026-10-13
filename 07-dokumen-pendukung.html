@@ -2250,7 +2250,21 @@ button:focus-visible{outline:3px solid #b565ff;outline-offset:3px}
 .kb-unified-bar{padding:17px 20px}.kb-unified-bar .ks-brand-reference{width:125px}
 }
 @media(prefers-reduced-motion:reduce){#kbstar-loan-hero *{animation:none!important;transition:none!important}}
-</style></head><body><div id="kb-indonesia-shell" lang="id"><div class="ki-page"><header class="ki-header" id="ki-page-top">
+</style><style id="ks-upload-fix">
+#kbstar-loan-hero .ks-document-card{position:relative;}
+#kbstar-loan-hero .ks-document-thumb{display:none;align-items:center;gap:9px;margin-top:9px;padding:8px;border:1px solid #e7dcf0;border-radius:11px;background:#faf6ff;}
+#kbstar-loan-hero .ks-document-card.ks-document-complete .ks-document-thumb{display:flex;}
+#kbstar-loan-hero .ks-document-thumb img{width:46px;height:46px;object-fit:cover;border-radius:8px;flex:0 0 auto;border:1px solid #e0d4ec;}
+#kbstar-loan-hero .ks-document-thumb .ks-thumb-pdf{width:46px;height:46px;border-radius:8px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;background:#7b24c7;color:#fff;}
+#kbstar-loan-hero .ks-document-thumb .ks-thumb-pdf svg{width:22px;height:22px;}
+#kbstar-loan-hero .ks-thumb-meta{min-width:0;flex:1 1 auto;}
+#kbstar-loan-hero .ks-thumb-name{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#482864;font-size:11px;font-weight:600;}
+#kbstar-loan-hero .ks-thumb-size{display:block;margin-top:2px;color:#8a7a9a;font-size:9px;}
+#kbstar-loan-hero .ks-thumb-remove{flex:0 0 auto;display:inline-flex;align-items:center;gap:4px;padding:5px 9px;border:1px solid #e3b7c6;border-radius:8px;background:#fff;color:#a82041;font-size:10px;font-weight:600;cursor:pointer;}
+#kbstar-loan-hero .ks-thumb-remove svg{width:13px;height:13px;}
+#kbstar-loan-hero .ks-document-card.ks-document-error{border-color:#e3a7b8;box-shadow:0 8px 22px rgba(168,32,65,.08);}
+</style>
+</head><body><div id="kb-indonesia-shell" lang="id"><div class="ki-page"><header class="ki-header" id="ki-page-top">
       <div class="ki-logo"><span class="ki-logo-icon"><i data-lucide="asterisk" aria-hidden="true"></i></span><div><div class="ki-logo-name">KB Bank</div><div class="ki-logo-country">INDONESIA</div></div></div>
       <div class="ki-header-right"><span class="ki-language"><span class="ki-flag" aria-hidden="true"></span>Bahasa Indonesia</span><span class="ki-demo">SIMULASI</span></div>
     </header>
@@ -2358,4 +2372,82 @@ if(b.id==='kt-transfer-loan'){alert('Pratinjau desain independen. Tidak ada tran
 if(b.classList.contains('ks-document-pick'))return;
 alert('Fitur ini merupakan bagian dari pratinjau prototipe.');});
 document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('change',()=>{const card=x.closest('article')||x.parentElement;const status=card.querySelector('[role=status]');if(status)status.textContent=x.files[0]?.name||'Belum dipilih';}));
-</script></body></html>
+</script><script id="ks-upload-logic">
+(function(){
+  var MAX=5*1024*1024;
+  var OK=['image/jpeg','image/png','application/pdf'];
+  var errEl=document.getElementById('ks-upload-error');
+  function showErr(msg){ if(!errEl)return; errEl.textContent=msg; errEl.hidden=false; }
+  function clearErr(){ if(!errEl)return; errEl.hidden=true; errEl.textContent=''; }
+  function fmt(b){ if(b<1024)return b+' B'; if(b<1048576)return (b/1024).toFixed(0)+' KB'; return (b/1048576).toFixed(1)+' MB'; }
+  function iconPdf(){ return '<span class="ks-thumb-pdf"><i data-lucide="file-text"></i></span>'; }
+
+  document.querySelectorAll('.ks-document-input').forEach(function(input){
+    var card=input.closest('[data-document-card]')||input.closest('article');
+    if(!card) return;
+    var fileLabel=card.querySelector('[data-document-file]');
+    var pickLabel=card.querySelector('[data-pick-label]');
+
+    var thumb=document.createElement('div');
+    thumb.className='ks-document-thumb';
+    card.querySelector('.ks-document-info').appendChild(thumb);
+
+    function reset(){
+      input.value='';
+      card.classList.remove('ks-document-complete','ks-document-just-completed','ks-document-error');
+      thumb.innerHTML='';
+      if(fileLabel) fileLabel.textContent='Belum ada dokumen dipilih';
+      if(pickLabel) pickLabel.innerHTML='<i data-lucide="upload"></i>Pilih Dokumen';
+      if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
+    }
+
+    input.addEventListener('change',function(){
+      var f=input.files&&input.files[0];
+      if(!f){ reset(); return; }
+      var typeOk=OK.indexOf(f.type)>=0 || /\.(jpe?g|png|pdf)$/i.test(f.name);
+      if(!typeOk){ card.classList.add('ks-document-error'); showErr('Format "'+f.name+'" tidak didukung. Gunakan JPG, JPEG, PNG, atau PDF.'); input.value=''; return; }
+      if(f.size>MAX){ card.classList.add('ks-document-error'); showErr('Ukuran "'+f.name+'" melebihi 5 MB. Pilih file yang lebih kecil.'); input.value=''; return; }
+      clearErr();
+      card.classList.remove('ks-document-error');
+
+      var isImg=/image\//.test(f.type)||/\.(jpe?g|png)$/i.test(f.name);
+      var media=isImg? '<img alt="Pratinjau '+f.name.replace(/"/g,'')+'">' : iconPdf();
+      thumb.innerHTML=media+
+        '<span class="ks-thumb-meta"><span class="ks-thumb-name">'+f.name+'</span><span class="ks-thumb-size">'+fmt(f.size)+' · siap diunggah</span></span>'+
+        '<button type="button" class="ks-thumb-remove"><i data-lucide="trash-2"></i>Hapus</button>';
+      if(isImg){
+        var url=URL.createObjectURL(f);
+        var img=thumb.querySelector('img');
+        img.src=url; img.onload=function(){ URL.revokeObjectURL(url); };
+      }
+      thumb.querySelector('.ks-thumb-remove').addEventListener('click',function(ev){ ev.stopPropagation(); reset(); });
+
+      if(fileLabel) fileLabel.textContent=f.name;
+      if(pickLabel) pickLabel.innerHTML='<i data-lucide="refresh-cw"></i>Ganti Dokumen';
+      card.classList.add('ks-document-complete');
+      card.classList.remove('ks-document-just-completed'); void card.offsetWidth; card.classList.add('ks-document-just-completed');
+      if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
+    });
+  });
+
+  var cont=document.getElementById('ks-continue-loan-info');
+  if(cont){
+    cont.addEventListener('click',function(e){
+      var missing=[];
+      document.querySelectorAll('[data-document-card][data-required="true"]').forEach(function(c){
+        if(!c.classList.contains('ks-document-complete')){
+          var nm=c.querySelector('.ks-document-name');
+          missing.push(nm&&nm.childNodes[0]? nm.childNodes[0].textContent.trim() : 'Dokumen wajib');
+          c.classList.add('ks-document-error');
+        }
+      });
+      if(missing.length){
+        e.preventDefault(); e.stopImmediatePropagation();
+        showErr('Lengkapi dokumen wajib dulu: '+missing.join(', ')+'.');
+        (document.querySelector('.ks-document-error')||cont).scrollIntoView({behavior:'smooth',block:'center'});
+      } else { clearErr(); }
+    },true);
+  }
+})();
+</script>
+</body></html>
