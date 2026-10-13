@@ -2447,6 +2447,7 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   var ten=document.getElementById('ks-loan-tenor');
   if(!prod||!amt||!rate||!ten) return;
 
+  var contBtn=document.getElementById('ks-add-disbursement-account');
   var limitEl=document.getElementById('ks-selected-product-limit');
   var limitTxt=document.getElementById('ks-selected-product-limit-text');
   var PLAFON={
@@ -2467,6 +2468,7 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
     // product + limit
     set('ks-live-product', product||'Belum dipilih');
     set('ks-summary-product', product||'Belum dipilih');
+    if(contBtn){ var ready=!!(product && P>0 && n>0); contBtn.hidden=!ready; }
     if(product && PLAFON[product]!=null){
       if(limitTxt) limitTxt.textContent='Plafon contoh hingga '+rp(PLAFON[product]);
       if(limitEl) limitEl.hidden=false;
