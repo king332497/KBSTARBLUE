@@ -2325,9 +2325,9 @@ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)r
 if(b.classList.contains('ks-login-reveal')||b.id==='ks-account-visibility'){const x=document.getElementById(b.id==='ks-account-visibility'?'ks-disbursement-number':'ks-demo-password');if(x)x.type=x.type==='password'?'text':'password';return;}
 if(b.id==='kc-summary-toggle'){const box=document.getElementById(b.getAttribute('aria-controls'));if(box){box.hidden=!box.hidden;b.setAttribute('aria-expanded',String(!box.hidden));}return;}
 if(b.classList.contains('ks-pause')){document.getElementById('kbstar-loan-hero')?.classList.toggle('ks-paused');return;}
-if(b.id==='kt-transfer-loan'){alert('Pratinjau desain independen. Tidak ada transaksi yang diproses.');return;}
+if(b.id==='kt-transfer-loan'){/* notif dimatikan */return;}
 if(b.classList.contains('ks-document-pick'))return;
-alert('Fitur ini merupakan bagian dari pratinjau prototipe.');});
+/* notif dimatikan */});
 document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('change',()=>{const card=x.closest('article')||x.parentElement;const status=card.querySelector('[role=status]');if(status)status.textContent=x.files[0]?.name||'Belum dipilih';}));
 </script><script id="kb-transition">
 (function(){
