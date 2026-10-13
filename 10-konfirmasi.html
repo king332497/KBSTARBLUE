@@ -2267,6 +2267,27 @@ html,body{overflow-x:clip;max-width:100%;}
   #kb-indonesia-shell .ki-page,#kb-indonesia-shell .ki-content,#kb-indonesia-shell .ki-header,#kb-indonesia-shell .ki-nav{box-sizing:border-box!important;max-width:100%!important;}
 }
 </style>
+<style id="kc-pinpad-style">
+#kc-pinpad{position:fixed;inset:0;z-index:100000;background:#fbf8fd;display:flex;flex-direction:column;align-items:center;padding:18px 20px 34px;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .28s ease,transform .3s ease,visibility .28s;}
+#kc-pinpad.on{opacity:1;visibility:visible;transform:none;}
+#kc-pinpad .kc-pp-top{width:100%;max-width:430px;display:flex;align-items:center;gap:10px;min-height:44px;}
+#kc-pinpad .kc-pp-back{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:0;background:transparent;color:#7b24c7;cursor:pointer;border-radius:10px;}
+#kc-pinpad .kc-pp-back svg{width:26px;height:26px;}
+#kc-pinpad .kc-pp-title{font-size:19px;font-weight:600;color:#2b2140;margin-left:4px;}
+#kc-pinpad .kc-pp-label{margin:56px 0 0;color:#7b24c7;font-size:20px;font-weight:700;}
+#kc-pinpad .kc-pp-dots{display:flex;gap:26px;margin:26px 0 0;}
+#kc-pinpad .kc-pp-dots .dot{width:15px;height:15px;border-radius:50%;border:2px solid #c9bcd8;transition:background .15s,border-color .15s,transform .15s;}
+#kc-pinpad .kc-pp-dots .dot.f{background:#7b24c7;border-color:#7b24c7;transform:scale(1.12);}
+#kc-pinpad.err .kc-pp-dots{animation:kc-shake .4s;}
+@keyframes kc-shake{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-7px);}40%,80%{transform:translateX(7px);}}
+#kc-pinpad .kc-pp-err{color:#a82041;font-size:12px;margin:12px 0 0;min-height:14px;}
+#kc-pinpad .kc-pp-keys{margin-top:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px 26px;width:100%;max-width:360px;padding-bottom:6px;}
+#kc-pinpad .kc-key{aspect-ratio:1/1;max-width:86px;width:100%;margin:0 auto;border-radius:50%;border:1px solid #e3dcec;background:#fff;color:#2b2140;font-size:30px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .12s,transform .08s;}
+#kc-pinpad .kc-key:active{background:#efe7f8;transform:scale(.94);}
+#kc-pinpad .kc-key.fn{color:#6a5a7d;}
+#kc-pinpad .kc-key svg{width:26px;height:26px;}
+@media(max-width:360px){#kc-pinpad .kc-pp-keys{gap:14px 18px;}#kc-pinpad .kc-key{font-size:26px;}}
+</style>
 </head><body><div id="kb-loader" class="kb-on" role="status" aria-live="polite" aria-label="Memuat halaman"><div class="kb-bar"></div><div class="kb-spin"></div><div class="kb-txt">Memuat…</div></div><div id="kb-indonesia-shell" lang="id"><div class="ki-page"><header class="ki-header" id="ki-page-top">
       <div class="ki-logo"><span class="ki-logo-icon"><i data-lucide="asterisk" aria-hidden="true"></i></span><div><div class="ki-logo-name">KB Bank</div><div class="ki-logo-country">INDONESIA</div></div></div>
       <div class="ki-header-right"><span class="ki-language"><span class="ki-flag" aria-hidden="true"></span>Bahasa Indonesia</span><span class="ki-demo">SIMULASI</span></div>
@@ -2390,6 +2411,37 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   function upd(){ btn.hidden=!checks.every(function(c){return c.checked;}); }
   checks.forEach(function(c){ c.addEventListener("change",upd); });
   upd();
+})();
+</script>
+<div id="kc-pinpad" role="dialog" aria-modal="true" aria-label="Masukkan PIN" hidden><div class="kc-pp-top"><button class="kc-pp-back" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><span class="kc-pp-title">Konfirmasi Simulasi</span></div><p class="kc-pp-label">Masukkan PIN Anda</p><div class="kc-pp-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><p class="kc-pp-err" aria-live="polite"></p><div class="kc-pp-keys"><button type="button" class="kc-key" data-k="1">1</button><button type="button" class="kc-key" data-k="2">2</button><button type="button" class="kc-key" data-k="3">3</button><button type="button" class="kc-key" data-k="4">4</button><button type="button" class="kc-key" data-k="5">5</button><button type="button" class="kc-key" data-k="6">6</button><button type="button" class="kc-key" data-k="7">7</button><button type="button" class="kc-key" data-k="8">8</button><button type="button" class="kc-key" data-k="9">9</button><button type="button" class="kc-key fn" data-k="reset" aria-label="Ulangi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button><button type="button" class="kc-key" data-k="0">0</button><button type="button" class="kc-key fn" data-k="del" aria-label="Hapus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5H8l-5 7 5 7h13a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/><path d="M15 9l-5 6M10 9l5 6"/></svg></button></div></div>
+<script id="kc-pinpad-logic">
+(function(){
+  var pad=document.getElementById('kc-pinpad');
+  var confirmBtn=document.getElementById('kc-confirm');
+  if(!pad||!confirmBtn) return;
+  var dots=[].slice.call(pad.querySelectorAll('.dot'));
+  var err=pad.querySelector('.kc-pp-err');
+  var pin='';
+  function render(){ dots.forEach(function(d,i){ d.classList.toggle('f', i<pin.length); }); }
+  function open(){ pin=''; render(); err.textContent=''; pad.hidden=false; requestAnimationFrame(function(){ pad.classList.add('on'); }); }
+  function close(){ pad.classList.remove('on'); setTimeout(function(){ pad.hidden=true; }, 280); }
+  function done(){
+    // prototype: any 6 digits accepted -> continue to analisis
+    if(window.__kbNav){ window.__kbNav('11-analisis.html'); } else { location.href='11-analisis.html'; }
+  }
+  function press(k){
+    if(k==='reset'){ pin=''; render(); return; }
+    if(k==='del'){ pin=pin.slice(0,-1); render(); return; }
+    if(/^[0-9]$/.test(k) && pin.length<6){ pin+=k; render();
+      if(pin.length===6){ setTimeout(done, 220); }
+    }
+  }
+  pad.querySelector('.kc-pp-keys').addEventListener('click',function(e){ var b=e.target.closest('.kc-key'); if(b) press(b.getAttribute('data-k')); });
+  pad.querySelector('.kc-pp-back').addEventListener('click',close);
+  // physical keyboard support
+  document.addEventListener('keydown',function(e){ if(pad.hidden)return; if(/^[0-9]$/.test(e.key))press(e.key); else if(e.key==='Backspace')press('del'); else if(e.key==='Escape')close(); });
+  // intercept confirm button (capture) so it opens PIN pad instead of navigating
+  confirmBtn.addEventListener('click',function(e){ e.preventDefault(); e.stopImmediatePropagation(); open(); }, true);
 })();
 </script>
 </body></html>
