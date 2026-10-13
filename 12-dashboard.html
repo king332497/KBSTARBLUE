@@ -2267,6 +2267,26 @@ html,body{overflow-x:clip;max-width:100%;}
   #kb-indonesia-shell .ki-page,#kb-indonesia-shell .ki-content,#kb-indonesia-shell .ki-header,#kb-indonesia-shell .ki-nav{box-sizing:border-box!important;max-width:100%!important;}
 }
 </style>
+<style id="kd-shimmer-style">
+#kd-dashboard #kd-next-step{position:relative;overflow:hidden;isolation:isolate;animation:kd-glow 3.2s ease-in-out infinite;}
+@keyframes kd-glow{0%,100%{box-shadow:0 10px 26px -12px rgba(123,36,199,.28),0 0 0 1px rgba(176,107,255,.18);}50%{box-shadow:0 14px 34px -10px rgba(123,36,199,.45),0 0 0 1px rgba(176,107,255,.5),0 0 22px rgba(176,107,255,.25);}}
+#kd-dashboard #kd-next-step::after{content:"";position:absolute;top:-60%;left:-75%;width:55%;height:220%;z-index:1;pointer-events:none;
+ transform:rotate(18deg);background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 100%);
+ animation:kd-sheen 3.6s ease-in-out infinite;}
+@keyframes kd-sheen{0%{left:-75%}55%{left:135%}100%{left:135%}}
+#kd-dashboard #kd-next-step > *{position:relative;z-index:2;}
+/* kilau pada tombol Periksa rekening */
+#kd-dashboard #kd-next-action{position:relative;overflow:hidden;}
+#kd-dashboard #kd-next-action::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;z-index:1;pointer-events:none;
+ transform:skewX(-20deg);background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.45),rgba(255,255,255,0));
+ animation:kd-btnsheen 2.8s ease-in-out infinite;}
+@keyframes kd-btnsheen{0%{left:-120%}45%{left:160%}100%{left:160%}}
+#kd-dashboard #kd-next-action > *{position:relative;z-index:2;}
+/* ikon panah berdenyut */
+#kd-dashboard #kd-next-step .kd-next-icon{animation:kd-iconpulse 2.2s ease-in-out infinite;}
+@keyframes kd-iconpulse{50%{transform:translateX(3px);opacity:.75;}}
+@media (prefers-reduced-motion:reduce){#kd-dashboard #kd-next-step,#kd-dashboard #kd-next-step::after,#kd-dashboard #kd-next-action::after,#kd-dashboard #kd-next-step .kd-next-icon{animation:none!important;}}
+</style>
 </head><body class="kd-dashboard-open"><div id="kb-loader" class="kb-on" role="status" aria-live="polite" aria-label="Memuat halaman"><div class="kb-bar"></div><div class="kb-spin"></div><div class="kb-txt">Memuat…</div></div><div id="kb-indonesia-shell" lang="id"><div class="ki-page"><header class="ki-header" id="ki-page-top">
       <div class="ki-logo"><span class="ki-logo-icon"><i data-lucide="asterisk" aria-hidden="true"></i></span><div><div class="ki-logo-name">KB Bank</div><div class="ki-logo-country">INDONESIA</div></div></div>
       <div class="ki-header-right"><span class="ki-language"><span class="ki-flag" aria-hidden="true"></span>Bahasa Indonesia</span><span class="ki-demo">SIMULASI</span></div>
