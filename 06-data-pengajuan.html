@@ -2261,7 +2261,22 @@ button:focus-visible{outline:3px solid #b565ff;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){#kb-loader .kb-spin{animation-duration:1.6s;}#kb-loader .kb-bar{animation-duration:2.4s;}}
 </style>
 <style id="kb-gate-style">#ks-continue-data:disabled,#ks-continue-data[disabled]{opacity:.5;cursor:not-allowed;filter:grayscale(.25);box-shadow:none;}</style>
-</head><body><div id="kb-loader" class="kb-on" role="status" aria-live="polite" aria-label="Memuat halaman"><div class="kb-bar"></div><div class="kb-spin"></div><div class="kb-txt">Memuat…</div></div><div id="kb-indonesia-shell" lang="id"><div class="ki-page"><header class="ki-header" id="ki-page-top">
+<style id="kb-check-style">
+#kbstar-loan-hero .ks-application-fields .ks-field{position:relative;}
+#kbstar-loan-hero .kb-check{position:absolute;top:-2px;right:0;width:18px;height:18px;opacity:0;transform:scale(.3);transition:opacity .22s ease,transform .38s cubic-bezier(.2,.9,.3,1.4);pointer-events:none;}
+#kbstar-loan-hero .kb-check svg{width:18px;height:18px;display:block;}
+#kbstar-loan-hero .kb-check .kb-c{fill:#16a34a;}
+#kbstar-loan-hero .kb-check .kb-p{fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:22;stroke-dashoffset:22;}
+#kbstar-loan-hero .kb-check.on{opacity:1;transform:scale(1);}
+#kbstar-loan-hero .kb-check.on .kb-p{animation:kb-draw .45s .08s ease forwards;}
+@keyframes kb-draw{to{stroke-dashoffset:0;}}
+/* green check inside the submit button when complete */
+#kbstar-loan-hero #ks-continue-data .kb-btn-check{display:none;width:18px;height:18px;margin-right:6px;vertical-align:-3px;}
+#kbstar-loan-hero #ks-continue-data.kb-ready .kb-btn-check{display:inline-block;animation:kb-pop .4s ease;}
+@keyframes kb-pop{0%{transform:scale(.3);opacity:0;}100%{transform:scale(1);opacity:1;}}
+#kbstar-loan-hero #ks-continue-data .kb-btn-check .kb-c{fill:#fff;}
+#kbstar-loan-hero #ks-continue-data .kb-btn-check .kb-p{stroke:#16a34a;}
+</style><body><div id="kb-loader" class="kb-on" role="status" aria-live="polite" aria-label="Memuat halaman"><div class="kb-bar"></div><div class="kb-spin"></div><div class="kb-txt">Memuat…</div></div><div id="kb-indonesia-shell" lang="id"><div class="ki-page"><header class="ki-header" id="ki-page-top">
       <div class="ki-logo"><span class="ki-logo-icon"><i data-lucide="asterisk" aria-hidden="true"></i></span><div><div class="ki-logo-name">KB Bank</div><div class="ki-logo-country">INDONESIA</div></div></div>
       <div class="ki-header-right"><span class="ki-language"><span class="ki-flag" aria-hidden="true"></span>Bahasa Indonesia</span><span class="ki-demo">SIMULASI</span></div>
     </header>
@@ -2401,6 +2416,37 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   function ok(){ for(var i=0;i<fields.length;i++){var v=fields[i].value; if(!v||!(''+v).trim())return false;} for(var j=0;j<checks.length;j++){ if(!checks[j].checked)return false;} return true; }
   function upd(){ btn.disabled=!ok(); }
   fields.concat(checks).forEach(function(el){ el.addEventListener('input',upd); el.addEventListener('change',upd); });
+  upd();
+})();
+</script>
+<script id="kb-check-logic">
+(function(){
+  var ids=['ks-app-fullname','ks-app-nik','ks-app-phone','ks-app-birthdate','ks-app-address','ks-app-job','ks-app-company','ks-app-income','ks-app-expense','ks-app-purpose'];
+  var SVG='<svg viewBox="0 0 24 24"><circle class="kb-c" cx="12" cy="12" r="11"></circle><path class="kb-p" d="M6 12.4l4 4 8-8.6"></path></svg>';
+  var btn=document.getElementById('ks-continue-data');
+  var map=[];
+  ids.forEach(function(id){
+    var el=document.getElementById(id); if(!el) return;
+    var group=el.closest('.ks-field')||el.parentElement;
+    var chk=document.createElement('span'); chk.className='kb-check'; chk.innerHTML=SVG;
+    group.appendChild(chk);
+    map.push({el:el,chk:chk});
+  });
+  function valid(el){
+    if(el.type==='date'){ return !!el.value; }           // invalid date -> value is ''
+    var v=el.value; return !!(v && (''+v).trim());
+  }
+  function upd(){
+    var all=true;
+    map.forEach(function(m){ var ok=valid(m.el); m.chk.classList.toggle('on',ok); if(!ok) all=false; });
+    if(btn){ btn.classList.toggle('kb-ready', all && map.length>0); }
+  }
+  // add a check icon into the button label
+  if(btn){
+    var span=btn.querySelector('span');
+    if(span){ var c=document.createElement('span'); c.className='kb-btn-check'; c.innerHTML=SVG; btn.insertBefore(c, btn.firstChild); }
+  }
+  map.forEach(function(m){ m.el.addEventListener('input',upd); m.el.addEventListener('change',upd); });
   upd();
 })();
 </script>
