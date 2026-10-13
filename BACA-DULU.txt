@@ -1,0 +1,33 @@
+CARA MEMBUKA
+1. Klik kanan ZIP > Extract All / Ekstrak Semua.
+2. Buka 01-beranda.html, atau klik dua kali halaman yang ingin dilihat.
+3. Simpan seluruh HTML dalam folder yang sama agar tombol antarhalaman bekerja.
+
+Setiap HTML berisi satu halaman, CSS, ikon, dan gambar tertanam. Tidak memakai iframe atau menyimpan halaman lain secara tersembunyi.
+Tampilan diseragamkan ke tema biru premium dengan logo KBStar tanpa kotak latar.
+Urutan pengajuan: 03-login.html > 04-verifikasi-data.html > 05-kode-simulasi.html > 06-data-pengajuan.html.
+Halaman OTP menggunakan kode contoh email dan SMS; tombol Lanjutkan aktif setelah keduanya terisi 6 digit. Tidak ada OTP asli yang dikirim.
+File OTP bernama 05-kode-simulasi.html (tanpa tambahan (1)) agar tautan antarhalaman sesuai.
+
+CAKUPAN
+Ini hasil pemisahan pratinjau, bukan pengganti aplikasi backend. Navigasi antarfile bekerja; state pengajuan, validasi lintas tahap, admin support, dan transaksi tidak dijalankan dalam versi mandiri ini. Data isian tidak disimpan atau dikirim. Sumber ZIP asli tidak diubah.
+Prototipe independen, bukan layanan resmi KB Bank.
+
+DAFTAR HALAMAN
+01-beranda.html
+02-pinjaman.html
+03-login.html
+04-verifikasi-data.html
+05-kode-simulasi.html
+06-data-pengajuan.html
+07-dokumen-pendukung.html
+08-informasi-pinjaman.html
+09-rekening-pencairan.html
+10-konfirmasi.html
+11-analisis.html
+12-dashboard.html
+13-menu.html
+14-produk.html
+15-notifikasi.html
+16-akun.html
+17-transfer-pinjaman.html
