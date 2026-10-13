@@ -2250,7 +2250,17 @@ button:focus-visible{outline:3px solid #b565ff;outline-offset:3px}
 .kb-unified-bar{padding:17px 20px}.kb-unified-bar .ks-brand-reference{width:125px}
 }
 @media(prefers-reduced-motion:reduce){#kbstar-loan-hero *{animation:none!important;transition:none!important}}
-</style></head><body><div id="kb-indonesia-shell" lang="id"><div class="ki-page"><header class="ki-header" id="ki-page-top">
+</style><style id="kb-transition-style">
+#kb-loader{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:rgba(244,237,251,.93);opacity:0;visibility:hidden;transition:opacity .28s ease,visibility .28s ease;pointer-events:none;}
+#kb-loader.kb-on{opacity:1;visibility:visible;pointer-events:auto;}
+#kb-loader .kb-spin{width:46px;height:46px;border-radius:50%;border:4px solid #e2d2f3;border-top-color:#7b24c7;animation:kb-rot .7s linear infinite;}
+#kb-loader .kb-txt{color:#6a4b8f;font:600 13px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;letter-spacing:.02em;}
+#kb-loader .kb-bar{position:fixed;top:0;left:0;height:3px;width:100%;background:linear-gradient(90deg,transparent,#7b24c7,#b06be8,transparent);background-size:40% 100%;background-repeat:no-repeat;animation:kb-slide 1s ease-in-out infinite;}
+@keyframes kb-rot{to{transform:rotate(360deg);}}
+@keyframes kb-slide{0%{background-position:-40% 0;}100%{background-position:140% 0;}}
+@media (prefers-reduced-motion:reduce){#kb-loader .kb-spin{animation-duration:1.6s;}#kb-loader .kb-bar{animation-duration:2.4s;}}
+</style>
+</head><body><div id="kb-loader" class="kb-on" role="status" aria-live="polite" aria-label="Memuat halaman"><div class="kb-bar"></div><div class="kb-spin"></div><div class="kb-txt">Memuat…</div></div><div id="kb-indonesia-shell" lang="id"><div class="ki-page"><header class="ki-header" id="ki-page-top">
       <div class="ki-logo"><span class="ki-logo-icon"><i data-lucide="asterisk" aria-hidden="true"></i></span><div><div class="ki-logo-name">KB Bank</div><div class="ki-logo-country">INDONESIA</div></div></div>
       <div class="ki-header-right"><span class="ki-language"><span class="ki-flag" aria-hidden="true"></span>Bahasa Indonesia</span><span class="ki-demo">SIMULASI</span></div>
     </header>
@@ -2331,7 +2341,7 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
 <script>
 if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
 document.addEventListener('submit',e=>e.preventDefault());
-document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.page){location.href=b.dataset.page;return;}
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.page){window.__kbNav(b.dataset.page);return;}
 if(b.classList.contains('ks-login-reveal')||b.id==='ks-account-visibility'){const x=document.getElementById(b.id==='ks-account-visibility'?'ks-disbursement-number':'ks-demo-password');if(x)x.type=x.type==='password'?'text':'password';return;}
 if(b.id==='kc-summary-toggle'){const box=document.getElementById(b.getAttribute('aria-controls'));if(box){box.hidden=!box.hidden;b.setAttribute('aria-expanded',String(!box.hidden));}return;}
 if(b.classList.contains('ks-pause')){document.getElementById('kbstar-loan-hero')?.classList.toggle('ks-paused');return;}
@@ -2339,4 +2349,21 @@ if(b.id==='kt-transfer-loan'){alert('Pratinjau desain independen. Tidak ada tran
 if(b.classList.contains('ks-document-pick'))return;
 alert('Fitur ini merupakan bagian dari pratinjau prototipe.');});
 document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('change',()=>{const card=x.closest('article')||x.parentElement;const status=card.querySelector('[role=status]');if(status)status.textContent=x.files[0]?.name||'Belum dipilih';}));
-</script></body></html>
+</script><script id="kb-transition">
+(function(){
+  var el=document.getElementById('kb-loader');
+  function hide(){ if(el) el.classList.remove('kb-on'); }
+  if(document.readyState==='complete'){ setTimeout(hide,200); }
+  else { window.addEventListener('load',function(){ setTimeout(hide,200); }); }
+  setTimeout(hide,1400);
+  window.__kbNav=function(url){ if(!url)return; if(el) el.classList.add('kb-on'); setTimeout(function(){ location.href=url; },480); };
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a'); if(!a)return;
+    var href=a.getAttribute('href')||'';
+    if(!href||/^https?:/i.test(href)||href.charAt(0)==='#'||a.target==='_blank')return;
+    if(/\.html(\?|#|$)/i.test(href)){ e.preventDefault(); window.__kbNav(href); }
+  });
+  window.addEventListener('pageshow',function(ev){ if(ev.persisted) hide(); });
+})();
+</script>
+</body></html>
