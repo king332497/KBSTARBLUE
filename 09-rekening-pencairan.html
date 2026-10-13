@@ -2328,13 +2328,13 @@ html,body{overflow-x:clip;max-width:100%;}
           <label class="ks-disbursement-field ks-account-number-field" id="ks-account-number-field" for="ks-disbursement-number">
             <span>Nomor Rekening</span>
             <span class="ks-disbursement-control ks-account-number-control">
-              <input id="ks-disbursement-number" type="password" inputmode="numeric" pattern="[0-9]{12}" maxlength="12" autocomplete="off" spellcheck="false" placeholder="Masukkan nomor rekening KB Bank" aria-describedby="ks-account-number-note ks-account-number-error" aria-label="Nomor Rekening KB Bank, 12 digit">
+              <input id="ks-disbursement-number" type="password" inputmode="numeric" pattern="[0-9]{11}" maxlength="11" autocomplete="off" spellcheck="false" placeholder="Masukkan nomor rekening KB Bank" aria-describedby="ks-account-number-note ks-account-number-error" aria-label="Nomor Rekening KB Bank, 11 digit">
               <span class="ks-account-field-tools">
-                <span class="ks-account-count" id="ks-account-count">0/12</span>
+                <span class="ks-account-count" id="ks-account-count">0/11</span>
                 <button type="button" class="ks-account-visibility" id="ks-account-visibility" aria-pressed="false" aria-label="Tampilkan nomor rekening"><i data-lucide="eye" aria-hidden="true"></i><span>Tampilkan</span></button>
               </span>
             </span>
-            <span class="ks-account-valid"><span class="ks-account-valid-orb" aria-hidden="true"><i data-lucide="check"></i></span>Nomor rekening 12 digit valid</span>
+            <span class="ks-account-valid"><span class="ks-account-valid-orb" aria-hidden="true"><i data-lucide="check"></i></span>Nomor rekening 11 digit valid</span>
             <p class="ks-disbursement-error" id="ks-account-number-error" role="alert" hidden></p>
           </label>
 
@@ -2352,7 +2352,7 @@ html,body{overflow-x:clip;max-width:100%;}
           <span class="ks-account-verified-progress" aria-hidden="true"></span>
         </div>
 
-        <p class="ks-disbursement-note" id="ks-account-number-note"><i data-lucide="info" aria-hidden="true"></i><span>Pastikan data rekening benar dan sesuai dengan identitas pemohon. Nomor rekening hanya menerima <strong>12 digit angka</strong>.</span></p>
+        <p class="ks-disbursement-note" id="ks-account-number-note"><i data-lucide="info" aria-hidden="true"></i><span>Pastikan data rekening benar dan sesuai dengan identitas pemohon. Nomor rekening hanya menerima <strong>11 digit angka</strong>.</span></p>
 
         <p id="ks-account-next-error" class="ks-disbursement-error" role="alert" hidden></p>
         <div class="ks-disbursement-actions">
@@ -2433,5 +2433,8 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   map.forEach(function(m){ m.el.addEventListener('input',upd); m.el.addEventListener('change',upd); });
   upd();
 })();
+</script>
+<script id="kb-rekcount">
+(function(){var inp=document.getElementById('ks-disbursement-number');var cnt=document.getElementById('ks-account-count');if(!inp||!cnt)return;function upd(){var d=(inp.value||'').replace(/\D/g,'').slice(0,11);if(inp.value!==d)inp.value=d;cnt.textContent=d.length+'/11';}inp.addEventListener('input',upd);inp.addEventListener('change',upd);upd();})();
 </script>
 </body></html>
