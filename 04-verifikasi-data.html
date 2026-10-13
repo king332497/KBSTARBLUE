@@ -2260,6 +2260,7 @@ button:focus-visible{outline:3px solid #b565ff;outline-offset:3px}
 @keyframes kb-slide{0%{background-position:-40% 0;}100%{background-position:140% 0;}}
 @media (prefers-reduced-motion:reduce){#kb-loader .kb-spin{animation-duration:1.6s;}#kb-loader .kb-bar{animation-duration:2.4s;}}
 </style>
+<style id="kb-gate-style">#ks-verify-next:disabled,#ks-verify-next[disabled]{opacity:.5;cursor:not-allowed;filter:grayscale(.25);box-shadow:none;}</style>
 </head><body><div id="kb-loader" class="kb-on" role="status" aria-live="polite" aria-label="Memuat halaman"><div class="kb-bar"></div><div class="kb-spin"></div><div class="kb-txt">Memuat…</div></div><div id="kb-indonesia-shell" lang="id"><div class="ki-page"><header class="ki-header" id="ki-page-top">
       <div class="ki-logo"><span class="ki-logo-icon"><i data-lucide="asterisk" aria-hidden="true"></i></span><div><div class="ki-logo-name">KB Bank</div><div class="ki-logo-country">INDONESIA</div></div></div>
       <div class="ki-header-right"><span class="ki-language"><span class="ki-flag" aria-hidden="true"></span>Bahasa Indonesia</span><span class="ki-demo">SIMULASI</span></div>
@@ -2357,5 +2358,17 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
 </script>
 <script id="kb-store-sync">
 (function(){try{var _ks_demo_fullname=document.getElementById('ks-demo-fullname');if(_ks_demo_fullname){var s_ks_demo_fullname=function(){try{var v=_ks_demo_fullname.value.trim();if(v)localStorage.setItem('kb_nama',v);}catch(e){}};_ks_demo_fullname.addEventListener('input',s_ks_demo_fullname);_ks_demo_fullname.addEventListener('change',s_ks_demo_fullname);}}catch(e){}})();
+</script>
+<script id="kb-gate">
+(function(){
+  var btn=document.getElementById("ks-verify-next");
+  var fields=["ks-demo-fullname", "ks-demo-nik", "ks-demo-mother"].map(function(i){return document.getElementById(i);}).filter(Boolean);
+  var checks=["ks-data-confirm"].map(function(i){return document.getElementById(i);}).filter(Boolean);
+  if(!btn) return;
+  function ok(){ for(var i=0;i<fields.length;i++){var v=fields[i].value; if(!v||!(''+v).trim())return false;} for(var j=0;j<checks.length;j++){ if(!checks[j].checked)return false;} return true; }
+  function upd(){ btn.disabled=!ok(); }
+  fields.concat(checks).forEach(function(el){ el.addEventListener('input',upd); el.addEventListener('change',upd); });
+  upd();
+})();
 </script>
 </body></html>

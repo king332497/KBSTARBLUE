@@ -2375,4 +2375,14 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   var a=document.querySelector('[data-confirmation="account"]'); if(a)a.textContent=fmtRek(rk);
 }catch(e){}})();
 </script>
+<script id="kb-gate">
+(function(){
+  var btn=document.getElementById("kc-confirm");
+  var checks=["kc-consent-data","kc-consent-example","kc-consent-pin"].map(function(i){return document.getElementById(i);}).filter(Boolean);
+  if(!btn||!checks.length) return;
+  function upd(){ btn.hidden=!checks.every(function(c){return c.checked;}); }
+  checks.forEach(function(c){ c.addEventListener("change",upd); });
+  upd();
+})();
+</script>
 </body></html>
