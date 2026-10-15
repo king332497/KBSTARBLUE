@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Verifikasi Data · KBStar — Prototipe</title><style>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"><title>Verifikasi Data · KBStar — Prototipe</title><style>
     html { color-scheme:light; }
-    body { margin:0; background:#f7f5f8; font-family:'Segoe UI',Arial,sans-serif; }
+    body { margin:0; background:#f7f5f8; font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif; }
     #kb-indonesia-shell { max-width:1220px; margin:0 auto; }
     button, input, select { font:inherit; }
     button { -webkit-tap-highlight-color:transparent; }
@@ -44,7 +44,7 @@
 #kd-dashboard .kd-greeting{white-space:normal;max-width:150px;font-size:11px;letter-spacing:.3px;line-height:1.4;overflow-wrap:anywhere;text-overflow:clip;margin-top:12px}
 </style>
   <style>
-#kb-indonesia-shell { --ki-yellow:#ffdb19; --ki-purple:#7727bc; --ki-text:#302e29; font-family:'Segoe UI',Arial,sans-serif; color:var(--ki-text); color-scheme:light; width:100%; }
+#kb-indonesia-shell { --ki-yellow:#ffdb19; --ki-purple:#7727bc; --ki-text:#302e29; font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif; color:var(--ki-text); color-scheme:light; width:100%; }
 #kb-indonesia-shell * { box-sizing:border-box; }
 #kb-indonesia-shell button, #kb-indonesia-shell input, #kb-indonesia-shell select { font:inherit; }
 #kb-indonesia-shell button { cursor:pointer; }
@@ -62,7 +62,7 @@
 #kb-indonesia-shell .ki-demo { color:#72570b; background:#fff6c5; padding:5px 8px; border-radius:4px; font-size:11px; line-height:1.5; letter-spacing:.8px; }
 #kb-indonesia-shell .ki-nav { display:flex; justify-content:space-between; align-items:stretch; gap:0; padding:0 27px; background:#ffdc18; }
 #kb-indonesia-shell .ki-nav-button { position:relative; flex:1; min-width:0; min-height:53px; padding:14px 10px; border:0; background:transparent; color:#322a09; font-size:13px; line-height:1.5; font-weight:500; transition:background .2s; }
-#kb-indonesia-shell .ki-nav-button:hover { background:#ffe858; }
+#kb-indonesia-shell .ki-nav-button:hover { background:#F3ECFA; color:#5B1E95; }
 #kb-indonesia-shell .ki-nav-button[aria-current='page']::after { content:''; position:absolute; left:25%; right:25%; bottom:0; height:3px; border-radius:2px 2px 0 0; background:#6923a6; }
 #kb-indonesia-shell .ki-content { padding:21px 34px 24px; }
 #kb-indonesia-shell .ki-hero { position:relative; isolation:isolate; min-height:300px; display:grid; place-items:center; overflow:hidden; background:#fff6d1; }
@@ -106,7 +106,8 @@
 #kb-indonesia-shell .ki-coin { position:absolute; width:34px; height:34px; top:107px; left:23%; display:flex; align-items:center; justify-content:center; border-radius:50%; background:radial-gradient(circle at 29% 21%,#fffac9,#ffe750 29%,#efb321 67%,#c18819); color:#98701b; font-size:11px; font-weight:500; box-shadow:3px 4px 0 #d0a133,7px 9px 12px #b7872730; animation:ki-float 8s ease-in-out infinite; }
 #kb-indonesia-shell .ki-star { position:absolute; width:35px; height:35px; right:24%; top:64px; clip-path:polygon(50% 0,63% 36%,100% 50%,63% 64%,50% 100%,36% 64%,0 50%,36% 36%); background:conic-gradient(from 40deg,#d3adf5,#7632b1,#e8cdff,#a46ed2,#f6ecff,#8144b6,#d3adf5); animation:ki-float 9s ease-in-out -3s infinite reverse; }
 #kb-indonesia-shell .ki-panels { display:grid; grid-template-columns:.95fr 1fr 1.1fr; gap:14px; margin-top:17px; }
-#kb-indonesia-shell .ki-panel { min-width:0; border:1px solid #dedbd5; background:#fff; }
+#kb-indonesia-shell .ki-panel { min-width:0; border:1px solid #ECEAE4; border-radius:14px; overflow:hidden; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.06); transition:box-shadow .2s,border-color .2s; }
+#kb-indonesia-shell .ki-panel:not(.ki-panel-primary):hover { box-shadow:0 6px 18px rgba(0,0,0,.08); border-color:#dcd9d3; }
 #kb-indonesia-shell .ki-panel-heading { display:flex; align-items:center; justify-content:space-between; gap:7px; padding:17px 18px; border-bottom:1px solid #efede7; }
 #kb-indonesia-shell .ki-panel-title { color:#342e23; font-size:15px; line-height:1.4; font-weight:500; margin:0; }
 #kb-indonesia-shell .ki-panel-heading svg { width:15px; height:15px; color:#a39882; }
@@ -211,7 +212,7 @@
 }
 </style>
 <style>
-#kbstar-loan-hero { --ks-purple:#7b24c7; --ks-violet:#5b119b; --ks-yellow:#ffe500; --ks-white:#fff; width:100%; color:#fff; color-scheme:light; font-family:'Segoe UI',Arial,sans-serif; }
+#kbstar-loan-hero { --ks-purple:#7b24c7; --ks-violet:#5b119b; --ks-yellow:#ffe500; --ks-white:#fff; width:100%; color:#fff; color-scheme:light; font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif; }
 #kbstar-loan-hero * { box-sizing:border-box; }
 #kbstar-loan-hero button { font:inherit; cursor:pointer; }
 #kbstar-loan-hero .ks-shell { position:relative; isolation:isolate; overflow:hidden; border-radius:22px; background:#7a23c5; }
@@ -235,7 +236,7 @@
 #kbstar-loan-hero .ks-eyebrow { display:flex; align-items:center; gap:8px; color:#ecd6ff; font-size:11px; line-height:1.5; letter-spacing:1.7px; font-weight:500; margin-bottom:19px; }
 #kbstar-loan-hero .ks-eyebrow::before { content:''; width:19px; height:2px; background:#ffe500; }
 #kbstar-loan-hero .ks-title { margin:0; color:#fff; font-weight:500; }
-#kbstar-loan-hero .ks-heading-small { display:block; font-family:'Segoe UI',Arial,sans-serif; font-size:19px; line-height:1.3; letter-spacing:-.35px; font-weight:500; }
+#kbstar-loan-hero .ks-heading-small { display:block; font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif; font-size:19px; line-height:1.3; letter-spacing:-.35px; font-weight:500; }
 #kbstar-loan-hero .ks-heading-word { display:block; font-family:Georgia,'Times New Roman',serif; font-size:66px; font-style:italic; font-weight:500; line-height:1.1; letter-spacing:-3px; text-shadow:1px 4px 0 #05317258; margin:0 0 15px -3px; }
 #kbstar-loan-hero .ks-heading-yellow { color:#ffe500; }
 #kbstar-loan-hero .ks-heading-word.ks-heading-yellow { text-shadow:1px 4px 0 #173f7b60; }
@@ -617,7 +618,7 @@
 #kb-indonesia-shell .ki-info-country { color:#9a7725; font-size:11px; line-height:1.4; }
 #kb-indonesia-shell .ki-digital { display:flex; flex-direction:column; gap:17px; padding:19px 18px; }
 #kb-indonesia-shell .ki-digital p { margin:0; color:#4A4A4A; font-size:14px; line-height:1.7; }
-#kb-indonesia-shell .ki-app-banner { display:flex; align-items:center; gap:12px; background:#F8F5FC; border:1px solid #E9DEF6; border-radius:10px; padding:13px; margin-top:2px; }
+#kb-indonesia-shell .ki-app-banner { display:flex; align-items:center; gap:12px; background:#F8F5FC; border:1px solid #E9DEF6; border-radius:12px; padding:13px; margin-top:2px; }
 #kb-indonesia-shell .ki-app-symbol { display:flex; align-items:center; justify-content:center; width:43px; height:46px; flex-shrink:0; border-radius:8px; background:#7727bc; color:#fff; }
 #kb-indonesia-shell .ki-app-symbol svg { width:27px; height:27px; stroke-width:1.5; }
 #kb-indonesia-shell .ki-app-label { font-size:14px; line-height:1.4; font-weight:500; color:#3C2A52; }
