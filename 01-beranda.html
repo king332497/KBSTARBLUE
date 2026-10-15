@@ -108,7 +108,7 @@
 #kb-indonesia-shell .ki-panels { display:grid; grid-template-columns:.95fr 1fr 1.1fr; gap:14px; margin-top:17px; }
 #kb-indonesia-shell .ki-panel { min-width:0; border:1px solid #ECEAE4; border-radius:14px; overflow:hidden; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.06); transition:box-shadow .2s,border-color .2s; }
 #kb-indonesia-shell .ki-panel:not(.ki-panel-primary):hover { box-shadow:0 6px 18px rgba(0,0,0,.08); border-color:#dcd9d3; }
-#kb-indonesia-shell .ki-panel-heading { display:flex; align-items:center; justify-content:space-between; gap:7px; padding:17px 18px; border-bottom:1px solid #efede7; }
+#kb-indonesia-shell .ki-panel-heading { display:flex; align-items:center; justify-content:space-between; gap:7px; padding:17px 18px; border-bottom:1px solid #ECEAE4; }
 #kb-indonesia-shell .ki-panel-title { color:#342e23; font-size:15px; line-height:1.4; font-weight:500; margin:0; }
 #kb-indonesia-shell .ki-panel-primary { border:1.5px solid #7727bc; box-shadow:0 8px 24px rgba(119,39,188,.10); }
 #kb-indonesia-shell .ki-panel-primary .ki-panel-heading { background:#F7F3FC; border-bottom-color:#E9DEF6; }
@@ -566,9 +566,9 @@
 #kb-indonesia-shell .ki-login svg { width:15px; height:15px; }
 #kb-indonesia-shell .ki-landing-panels { margin-top:0; }
 #kb-indonesia-shell .ki-landing-note { color:#6B6B6B; font-size:13px; line-height:1.6; margin:19px 0 0; }
-#kb-indonesia-shell .ki-access-note { color:#6B6B6B; font-size:13px; line-height:1.6; margin:0; padding:12px 18px 18px; border-top:1px solid #eee9e0; }
+#kb-indonesia-shell .ki-access-note { color:#6B6B6B; font-size:13px; line-height:1.6; margin:0; padding:12px 18px 18px; border-top:1px solid #ECEAE4; }
 #kb-indonesia-shell .ki-info-list { padding:0 18px; }
-#kb-indonesia-shell .ki-info-item { padding:13px 0; border-bottom:1px solid #eee9e0; }
+#kb-indonesia-shell .ki-info-item { padding:13px 0; border-bottom:1px solid #ECEAE4; }
 #kb-indonesia-shell .ki-info-item:last-child { border-bottom:0; }
 #kb-indonesia-shell .ki-info-title { margin:0 0 5px; color:#2B2B2B; font-size:15px; font-weight:500; line-height:1.5; }
 #kb-indonesia-shell .ki-info-text { margin:0; color:#4A4A4A; font-size:14px; line-height:1.6; }
@@ -617,11 +617,13 @@
 #kb-indonesia-shell .ki-landing-panels { grid-template-columns:repeat(3,minmax(0,1fr)); align-items:stretch; }
 #kb-indonesia-shell .ki-landing-panels > :last-child { grid-column:auto; }
 #kb-indonesia-shell .ki-shortcuts { padding:0; }
-#kb-indonesia-shell .ki-shortcut { min-height:62px; padding:12px 16px; border-bottom:1px solid #efede8; gap:9px; font-size:11px; }
+#kb-indonesia-shell .ki-shortcut { min-height:62px; padding:12px 16px; border-bottom:1px solid #ECEAE4; gap:9px; font-size:11px; }
 #kb-indonesia-shell .ki-shortcut:nth-last-child(-n+2) { border-bottom:0; }
 #kb-indonesia-shell .ki-info-country { color:#9a7725; font-size:11px; line-height:1.4; }
 #kb-indonesia-shell .ki-digital { display:flex; flex-direction:column; gap:17px; padding:19px 18px; }
 #kb-indonesia-shell .ki-digital p { margin:0; color:#4A4A4A; font-size:14px; line-height:1.7; }
+#kb-indonesia-shell .ki-digital-cta { display:inline-flex; align-items:center; gap:8px; align-self:flex-start; min-height:44px; padding:11px 18px; border-radius:10px; background:#7727bc; color:#fff; font-size:13px; font-weight:500; line-height:1.5; text-decoration:none; transition:background .2s,transform .2s; }
+#kb-indonesia-shell .ki-digital-cta:hover { background:#651fa3; transform:translateY(-1px); }
 #kb-indonesia-shell .ki-app-banner { display:flex; align-items:center; gap:12px; background:#F8F5FC; border:1px solid #E9DEF6; border-radius:12px; padding:13px; margin-top:2px; }
 #kb-indonesia-shell .ki-app-symbol { display:flex; align-items:center; justify-content:center; width:43px; height:46px; flex-shrink:0; border-radius:8px; background:#7727bc; color:#fff; }
 #kb-indonesia-shell .ki-app-symbol svg { width:27px; height:27px; stroke-width:1.5; }
@@ -629,12 +631,12 @@
 #kb-indonesia-shell .ki-app-caption { font-size:11px; line-height:1.5; color:#7A6A8C; margin-top:3px; }
 #kb-indonesia-shell .ki-location-row { display:grid; grid-template-columns:172px minmax(0,1fr); gap:14px; margin-top:15px; align-items:stretch; }
 #kb-indonesia-shell .ki-location-links { border:1px solid #dedbd5; display:flex; flex-direction:column; }
-#kb-indonesia-shell .ki-location-link { flex:1; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:17px; min-height:58px; border:0; border-bottom:1px solid #efede8; background:#fff; color:#74644c; text-align:left; font-size:11px; line-height:1.5; }
+#kb-indonesia-shell .ki-location-link { flex:1; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:17px; min-height:58px; border:0; border-bottom:1px solid #ECEAE4; background:#fff; color:#74644c; text-align:left; font-size:11px; line-height:1.5; }
 #kb-indonesia-shell .ki-location-link:last-child { border-bottom:0; }
 #kb-indonesia-shell .ki-location-link:hover { background:#fffae9; }
 #kb-indonesia-shell .ki-location-link svg { width:14px; height:14px; flex-shrink:0; color:#b0a187; }
 #kb-indonesia-shell .ki-location-panel { min-width:0; border:1px solid #dedbd5; background:#fff; }
-#kb-indonesia-shell .ki-location-heading { display:flex; align-items:center; gap:14px; padding:13px 18px; border-bottom:1px solid #efede8; }
+#kb-indonesia-shell .ki-location-heading { display:flex; align-items:center; gap:14px; padding:13px 18px; border-bottom:1px solid #ECEAE4; }
 #kb-indonesia-shell .ki-location-heading h2 { margin:0; font-size:15px; line-height:1.5; font-weight:500; color:#493d29; }
 #kb-indonesia-shell .ki-location-primary { color:#9a7220; font-size:11px; line-height:1.5; }
 #kb-indonesia-shell .ki-location-content { display:grid; grid-template-columns:170px minmax(0,1fr); }
@@ -672,7 +674,7 @@
   #kb-indonesia-shell .ki-country-layout .ki-title { font-size:33px; }
   #kb-indonesia-shell .ki-location-row { grid-template-columns:1fr; }
   #kb-indonesia-shell .ki-location-links { flex-direction:row; }
-  #kb-indonesia-shell .ki-location-link { padding:12px 11px; border-bottom:0; border-right:1px solid #efede8; font-size:11px; }
+  #kb-indonesia-shell .ki-location-link { padding:12px 11px; border-bottom:0; border-right:1px solid #ECEAE4; font-size:11px; }
   #kb-indonesia-shell .ki-location-link:last-child { border-right:0; }
 }
 @media(max-width:540px) {
@@ -687,7 +689,7 @@
   #kb-indonesia-shell .ki-location-city svg { width:22px; height:22px; }
   #kb-indonesia-shell .ki-location-city strong { font-size:13px; }
   #kb-indonesia-shell .ki-location-links { flex-direction:column; }
-  #kb-indonesia-shell .ki-location-link { border-right:0; border-bottom:1px solid #efede8; min-height:46px; }
+  #kb-indonesia-shell .ki-location-link { border-right:0; border-bottom:1px solid #ECEAE4; min-height:46px; }
 }
 </style>
 <style>
@@ -2300,8 +2302,8 @@ html,body{overflow-x:clip;max-width:100%;}
       </div>
       <div class="ki-panels ki-landing-panels">
         <section class="ki-panel" aria-labelledby="ki-start-title"><div class="ki-panel-heading"><h2 class="ki-panel-title" id="ki-start-title">Akses cepat</h2><i data-lucide="arrow-up-right" aria-hidden="true"></i></div><div class="ki-shortcuts"><button type="button" class="ki-shortcut" data-section="accounts" data-page="16-akun.html"><i data-lucide="wallet" aria-hidden="true"></i>Rekening</button><button type="button" class="ki-shortcut" data-section="transfer" data-page="17-transfer-pinjaman.html"><i data-lucide="arrow-up-right" aria-hidden="true"></i>Transfer</button><button type="button" class="ki-shortcut" data-section="deposit" data-page="14-produk.html"><i data-lucide="landmark" aria-hidden="true"></i>Simpanan</button><button type="button" class="ki-shortcut" data-section="loan" data-page="02-pinjaman.html"><i data-lucide="file-text" aria-hidden="true"></i>Pinjaman</button><button type="button" class="ki-shortcut" data-section="forex"><i data-lucide="coins" aria-hidden="true"></i>Valuta asing</button><button type="button" class="ki-shortcut" data-section="reports"><i data-lucide="bell-ring" aria-hidden="true"></i>Pusat laporan</button><button type="button" class="ki-shortcut" data-section="personal"><i data-lucide="user-round" aria-hidden="true"></i>Perbankan pribadi</button><button type="button" class="ki-shortcut" data-section="business"><i data-lucide="building-2" aria-hidden="true"></i>Perbankan bisnis</button></div></section>
-        <section class="ki-panel" aria-labelledby="ki-info-title"><div class="ki-panel-heading"><h2 class="ki-panel-title" id="ki-info-title">Informasi</h2><span class="ki-info-country">Indonesia</span></div><div class="ki-info-list"><div class="ki-info-item"><h3 class="ki-info-title">Rencana pinjaman</h3><p class="ki-info-text">Lihat contoh jumlah pinjaman dan jangka waktunya.</p></div><div class="ki-info-item"><h3 class="ki-info-title">Simulasi cicilan</h3><p class="ki-info-text">Ubah asumsi untuk membandingkan perhitungan per bulan.</p></div><div class="ki-info-item"><h3 class="ki-info-title">Panduan penggunaan</h3><p class="ki-info-text">Pilih Login pada panel Indonesia untuk membuka halaman pinjaman KBStar.</p></div></div></section>
-        <section class="ki-panel ki-panel-primary" aria-labelledby="ki-digital-title"><div class="ki-panel-heading"><h2 class="ki-panel-title" id="ki-digital-title">Layanan digital</h2><span class="ki-panel-badge">Utama</span></div><div class="ki-digital"><p>Halaman pinjaman KBStar tersedia melalui tombol Login pada bagian Indonesia.</p><p>Isi jumlah pinjaman, pilih tenor, lalu coba perhitungan cicilan menggunakan asumsi Anda.</p><div class="ki-app-banner"><span class="ki-app-symbol"><i data-lucide="smartphone" aria-hidden="true"></i></span><div><div class="ki-app-label">KBStar</div><div class="ki-app-caption">Simulasi pinjaman</div></div></div></div></section>
+        <section class="ki-panel" aria-labelledby="ki-info-title"><div class="ki-panel-heading"><h2 class="ki-panel-title" id="ki-info-title">Informasi</h2><span class="ki-info-country">Indonesia</span></div><div class="ki-info-list"><div class="ki-info-item"><h3 class="ki-info-title">Rencana pinjaman</h3><p class="ki-info-text">Lihat contoh jumlah pinjaman dan jangka waktunya.</p></div><div class="ki-info-item"><h3 class="ki-info-title">Simulasi cicilan</h3><p class="ki-info-text">Ubah asumsi untuk membandingkan perhitungan per bulan.</p></div><div class="ki-info-item"><h3 class="ki-info-title">Estimasi cicilan</h3><p class="ki-info-text">Perkiraan angsuran per bulan muncul otomatis saat Anda mengubah jumlah pinjaman atau tenor.</p></div></div></section>
+        <section class="ki-panel ki-panel-primary" aria-labelledby="ki-digital-title"><div class="ki-panel-heading"><h2 class="ki-panel-title" id="ki-digital-title">Layanan digital</h2><span class="ki-panel-badge">Utama</span></div><div class="ki-digital"><p>Hitung estimasi cicilan pinjaman KBStar dalam satu menit — masukkan jumlah dan tenor, lihat perkiraan angsuran per bulan.</p><a class="ki-digital-cta" href="02-pinjaman.html">Coba simulasi pinjaman <span aria-hidden="true">&rarr;</span></a><div class="ki-app-banner"><span class="ki-app-symbol"><i data-lucide="smartphone" aria-hidden="true"></i></span><div><div class="ki-app-label">KBStar</div><div class="ki-app-caption">Simulasi pinjaman</div></div></div></div></section>
       </div>
       <div class="ki-location-row">
         <aside class="ki-location-links" aria-label="Panduan pengunjung"><button type="button" class="ki-location-link" data-section="welcome">Selamat datang<i data-lucide="chevron-right" aria-hidden="true"></i></button><button type="button" class="ki-location-link" data-section="guide">Kunjungan pertama<i data-lucide="chevron-right" aria-hidden="true"></i></button><button type="button" class="ki-location-link" data-section="help">Pertanyaan umum<i data-lucide="chevron-right" aria-hidden="true"></i></button></aside>
