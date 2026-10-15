@@ -2285,7 +2285,7 @@ html,body{overflow-x:clip;max-width:100%;}
 </header>
    <nav class="ki-nav" aria-label="Navigasi utama KB Bank Indonesia">
   <button type="button" class="ki-nav-button" data-section="accounts" data-page="16-akun.html">Rekening</button>
-  <button type="button" class="ki-nav-button" data-section="transfer" data-page="17-transfer-pinjaman.html">Transfer</button>
+  <button type="button" class="ki-nav-button" onclick="event.stopImmediatePropagation(); event.preventDefault();">Transfer</button>
   <button type="button" class="ki-nav-button" data-section="deposit" data-page="14-produk.html">Simpanan</button>
   <button type="button" class="ki-nav-button" data-section="loan" data-page="02-pinjaman.html">Pinjaman</button>
   <button type="button" class="ki-nav-button" data-section="forex">Valuta Asing</button>
@@ -2308,8 +2308,37 @@ html,body{overflow-x:clip;max-width:100%;}
       <div class="ki-panels ki-landing-panels">
         <section class="ki-panel" aria-labelledby="ki-start-title"><div class="ki-panel-heading"><h2 class="ki-panel-title" id="ki-start-title">Akses cepat</h2><i data-lucide="arrow-up-right" aria-hidden="true"></i></div><div class="ki-shortcuts"><button type="button" class="ki-shortcut" data-section="accounts" data-page="16-akun.html"><i data-lucide="wallet" aria-hidden="true"></i>Rekening</button><button type="button" class="ki-shortcut" data-section="transfer" data-page="17-transfer-pinjaman.html"><i data-lucide="arrow-up-right" aria-hidden="true"></i>Transfer</button><button type="button" class="ki-shortcut" data-section="deposit" data-page="14-produk.html"><i data-lucide="landmark" aria-hidden="true"></i>Simpanan</button><button type="button" class="ki-shortcut" data-section="loan" data-page="02-pinjaman.html"><i data-lucide="file-text" aria-hidden="true"></i>Pinjaman</button><button type="button" class="ki-shortcut" data-section="forex"><i data-lucide="coins" aria-hidden="true"></i>Valuta asing</button><button type="button" class="ki-shortcut" data-section="reports"><i data-lucide="bell-ring" aria-hidden="true"></i>Pusat laporan</button><button type="button" class="ki-shortcut" data-section="personal"><i data-lucide="user-round" aria-hidden="true"></i>Perbankan pribadi</button><button type="button" class="ki-shortcut" data-section="business"><i data-lucide="building-2" aria-hidden="true"></i>Perbankan bisnis</button></div></section>
         <section class="ki-panel" aria-labelledby="ki-info-title"><div class="ki-panel-heading"><h2 class="ki-panel-title" id="ki-info-title">Informasi</h2><span class="ki-info-country">Indonesia</span></div><div class="ki-info-list"><div class="ki-info-item"><h3 class="ki-info-title">Rencana pinjaman</h3><p class="ki-info-text">Lihat contoh jumlah pinjaman dan jangka waktunya.</p></div><div class="ki-info-item"><h3 class="ki-info-title">Simulasi cicilan</h3><p class="ki-info-text">Ubah asumsi untuk membandingkan perhitungan per bulan.</p></div><div class="ki-info-item"><h3 class="ki-info-title">Estimasi cicilan</h3><p class="ki-info-text">Perkiraan angsuran per bulan muncul otomatis saat Anda mengubah jumlah pinjaman atau tenor.</p></div></div></section>
-        <section class="ki-panel ki-panel-primary" aria-labelledby="ki-digital-title"><div class="ki-panel-heading"><h2 class="ki-panel-title" id="ki-digital-title">Layanan digital</h2><span class="ki-panel-badge">Utama</span></div><div class="ki-digital"><p>Hitung estimasi cicilan pinjaman KBStar dalam satu menit — masukkan jumlah dan tenor, lihat perkiraan angsuran per bulan.</p><a class="ki-digital-cta" href="02-pinjaman.html">Coba simulasi pinjaman <span aria-hidden="true">&rarr;</span></a><div class="ki-app-banner"><span class="ki-app-symbol"><i data-lucide="smartphone" aria-hidden="true"></i></span><div><div class="ki-app-label">KBStar</div><div class="ki-app-caption">Simulasi pinjaman</div></div></div></div></section>
+       <section class="ki-panel ki-panel-primary" aria-labelledby="ki-digital-title">
+  <div class="ki-panel-heading">
+    <h2 class="ki-panel-title" id="ki-digital-title">Layanan Digital</h2>
+    <span class="ki-panel-badge">Layanan Perbankan</span>
+  </div>
+
+  <div class="ki-digital">
+    <p>
+      Rencanakan kebutuhan pembiayaan Anda melalui
+      kalkulator pinjaman. Tentukan nominal pinjaman
+      dan jangka waktu pembayaran untuk mengetahui
+      estimasi angsuran bulanan.
+    </p>
+
+    <a class="ki-digital-cta" href="02-pinjaman.html">
+      Hitung Angsuran Pinjaman
+      <span aria-hidden="true">&rarr;</span>
+    </a>
+
+    <div class="ki-app-banner">
+      <span class="ki-app-symbol">
+        <i data-lucide="smartphone" aria-hidden="true"></i>
+      </span>
+
+      <div>
+        <div class="ki-app-label">KB Bank</div>
+        <div class="ki-app-caption">Kalkulator Pinjaman</div>
       </div>
+    </div>
+  </div>
+</section>
       <div class="ki-location-row">
         <aside class="ki-location-links" aria-label="Panduan pengunjung"><button type="button" class="ki-location-link" data-section="welcome">Selamat datang<i data-lucide="chevron-right" aria-hidden="true"></i></button><button type="button" class="ki-location-link" data-section="guide">Kunjungan pertama<i data-lucide="chevron-right" aria-hidden="true"></i></button><button type="button" class="ki-location-link" data-section="help">Pertanyaan umum<i data-lucide="chevron-right" aria-hidden="true"></i></button></aside>
         <section class="ki-location-panel"
